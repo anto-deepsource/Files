@@ -1,5 +1,5 @@
-// Copyright (c) 2024 Files Community
-// Licensed under the MIT License. See the LICENSE.
+// Copyright (c) Files Community
+// Licensed under the MIT License.
 
 using Microsoft.Extensions.Logging;
 using Microsoft.Win32;
@@ -11,10 +11,11 @@ using Windows.ApplicationModel;
 using Windows.Storage;
 using Windows.Storage.Pickers;
 using Windows.System;
+using Windows.Win32.Storage.FileSystem;
 
 namespace Files.App.ViewModels.Settings
 {
-	public sealed class AdvancedViewModel : ObservableObject
+	public sealed partial class AdvancedViewModel : ObservableObject
 	{
 		private IUserSettingsService UserSettingsService { get; } = Ioc.Default.GetRequiredService<IUserSettingsService>();
 		private ICommonDialogService CommonDialogService { get; } = Ioc.Default.GetRequiredService<ICommonDialogService>();
@@ -78,7 +79,7 @@ namespace Files.App.ViewModels.Settings
 			var dataPath = Environment.ExpandEnvironmentVariables("%LocalAppData%\\Files");
 			if (IsSetAsDefaultFileManager)
 			{
-				if (!await Win32Helper.RunPowershellCommandAsync($"-command \"New-Item -Force -Path '{dataPath}' -ItemType Directory; Copy-Item -Filter *.* -Path '{destFolder}\\*' -Recurse -Force -Destination '{dataPath}'\"", false))
+				if (!await Win32Helper.RunPowershellCommandAsync($"-command \"New-Item -Force -Path '{dataPath}' -ItemType Directory; Copy-Item -Filter *.* -Path '{destFolder}\\*' -Recurse -Force -Destination '{dataPath}'\"", PowerShellExecutionOptions.Hidden))
 				{
 					// Error copying files
 					await DetectResult();
@@ -87,7 +88,7 @@ namespace Files.App.ViewModels.Settings
 			}
 			else
 			{
-				await Win32Helper.RunPowershellCommandAsync($"-command \"Remove-Item -Path '{dataPath}' -Recurse -Force\"", false);
+				await Win32Helper.RunPowershellCommandAsync($"-command \"Remove-Item -Path '{dataPath}' -Recurse -Force\"", PowerShellExecutionOptions.Hidden);
 			}
 
 			try
@@ -160,7 +161,9 @@ namespace Files.App.ViewModels.Settings
 		private async Task ImportSettingsAsync()
 		{
 			string[] extensions = ["ZipFileCapitalized".GetLocalizedResource(), "*.zip"];
-			CommonDialogService.Open_FileOpenDialog(MainWindow.Instance.WindowHandle, false, extensions, Environment.SpecialFolder.Desktop, out var filePath);
+			bool result = CommonDialogService.Open_FileOpenDialog(MainWindow.Instance.WindowHandle, false, extensions, Environment.SpecialFolder.Desktop, out var filePath);
+			if (!result)
+				return;
 
 			try
 			{
@@ -204,7 +207,9 @@ namespace Files.App.ViewModels.Settings
 		private async Task ExportSettingsAsync()
 		{
 			string[] extensions = ["ZipFileCapitalized".GetLocalizedResource(), "*.zip" ];
-			CommonDialogService.Open_FileSaveDialog(MainWindow.Instance.WindowHandle, false, extensions, Environment.SpecialFolder.Desktop, out var filePath);
+			bool result = CommonDialogService.Open_FileSaveDialog(MainWindow.Instance.WindowHandle, false, extensions, Environment.SpecialFolder.Desktop, out var filePath);
+			if (!result)
+				return;
 
 			if (!filePath.EndsWith(".zip", StringComparison.OrdinalIgnoreCase))
 				filePath += ".zip";
@@ -213,7 +218,7 @@ namespace Files.App.ViewModels.Settings
 			{
 				var handle = Win32PInvoke.CreateFileFromAppW(
 					filePath,
-					Win32PInvoke.GENERIC_READ | Win32PInvoke.GENERIC_WRITE,
+					(uint)(FILE_ACCESS_RIGHTS.FILE_GENERIC_READ | FILE_ACCESS_RIGHTS.FILE_GENERIC_WRITE),
 					Win32PInvoke.FILE_SHARE_READ | Win32PInvoke.FILE_SHARE_WRITE,
 					nint.Zero,
 					Win32PInvoke.CREATE_NEW,
@@ -287,7 +292,7 @@ namespace Files.App.ViewModels.Settings
 			set => SetProperty(ref isSetAsOpenFileDialog, value);
 		}
 
-		public bool CanShowSetAsOpenFileDialog
+		public bool IsAppEnvironmentDev
 		{
 			get => AppLifecycleHelper.AppEnvironment is AppEnvironment.Dev;
 		}
@@ -331,6 +336,34 @@ namespace Files.App.ViewModels.Settings
 
 					OnPropertyChanged();
 				}
+			}
+		}
+		
+		public bool ShowSystemTrayIcon
+		{
+			get => UserSettingsService.GeneralSettingsService.ShowSystemTrayIcon;
+			set
+			{
+				if (value != UserSettingsService.GeneralSettingsService.ShowSystemTrayIcon)
+				{
+					UserSettingsService.GeneralSettingsService.ShowSystemTrayIcon = value;
+
+					OnPropertyChanged();
+				}
+			}
+		}
+
+		// TODO remove when feature is marked as stable
+		public bool ShowFlattenOptions
+		{
+			get => UserSettingsService.GeneralSettingsService.ShowFlattenOptions;
+			set
+			{
+				if (value == UserSettingsService.GeneralSettingsService.ShowFlattenOptions)
+					return;
+
+				UserSettingsService.GeneralSettingsService.ShowFlattenOptions = value;
+				OnPropertyChanged();
 			}
 		}
 

@@ -1,7 +1,5 @@
-﻿// Copyright (c) 2024 Files Community
-// Licensed under the MIT License. See the LICENSE.
-
-using System.IO;
+﻿// Copyright (c) Files Community
+// Licensed under the MIT License.
 
 namespace Files.App.Data.Items
 {
@@ -9,7 +7,7 @@ namespace Files.App.Data.Items
 	{
 		public const string EXTENSION = ".library-ms";
 
-		public static readonly string LibrariesPath = Win32PInvoke.GetFolderFromKnownFolderGUID(new Guid("1B3EA5DC-B587-4786-B4EF-BD1DC332AEAE"));
+		public static readonly string LibrariesPath = Win32Helper.GetFolderFromKnownFolderGUID(new Guid("1B3EA5DC-B587-4786-B4EF-BD1DC332AEAE"));
 
 		/// <summary>
 		/// Full path of library file.<br/>

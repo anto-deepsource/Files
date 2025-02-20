@@ -126,6 +126,9 @@
   <data name="CopyPathWithQuotes" xml:space="preserve">
     <value>نسخ المسار مع الاقتباس</value>
   </data>
+  <data name="CopyItemPathWithQuotes" xml:space="preserve">
+    <value>Copy selected item path with quotes</value>
+  </data>
   <data name="Browse" xml:space="preserve">
     <value>تصفح</value>
   </data>
@@ -249,6 +252,9 @@
   <data name="Paste" xml:space="preserve">
     <value>لصق</value>
   </data>
+  <data name="PasteShortcut" xml:space="preserve">
+    <value>Paste shortcut</value>
+  </data>
   <data name="BaseLayoutContextFlyoutNew.Label" xml:space="preserve">
     <value>جديدة</value>
   </data>
@@ -291,8 +297,8 @@
   <data name="EnterAnItemName" xml:space="preserve">
     <value>ادخل اسم عنصر</value>
   </data>
-  <data name="RenameDialog.PrimaryButtonText" xml:space="preserve">
-    <value>تعيين اسم</value>
+  <data name="CreateNewItemTitle" xml:space="preserve">
+    <value>Create new {0}</value>
   </data>
   <data name="LightTheme" xml:space="preserve">
     <value>فاتح</value>
@@ -385,7 +391,7 @@
     <value>للقراءة فقط</value>
   </data>
   <data name="DaysAgo" xml:space="preserve">
-    <value>{0, plural, zero {}one {#يوم مضت} two {# أيام مضت} few {# أيام مضت} many {# أيام مضت} other {# أيام مضت}}</value>
+    <value>{0, plural, zero {}one {# day ago} two {# days ago} few {# days ago} many {# days ago} other {# days ago}}</value>
   </data>
   <data name="DaysAgo_Singular" xml:space="preserve">
     <value>منذ يوم</value>
@@ -1052,9 +1058,6 @@
   <data name="NavToolbarDetails.ToolTipService.ToolTip" xml:space="preserve">
     <value>طريقة عرض التفاصيل</value>
   </data>
-  <data name="NavToolbarTiles.ToolTipService.ToolTip" xml:space="preserve">
-    <value>عرض البلاط</value>
-  </data>
   <data name="DateDeleted" xml:space="preserve">
     <value>‏‏تاريخ الحذف</value>
   </data>
@@ -1237,6 +1240,12 @@
   </data>
   <data name="OpenStorageSense" xml:space="preserve">
     <value>افتح Storage Sense</value>
+  </data>
+  <data name="OpenStorageSenseDescription" xml:space="preserve">
+    <value>Open the Storage Sense page in Windows Settings</value>
+  </data>
+  <data name="Cleanup" xml:space="preserve">
+    <value>Cleanup</value>
   </data>
   <data name="Copy" xml:space="preserve">
     <value>نسخ</value>
@@ -1647,15 +1656,6 @@
   <data name="Home" xml:space="preserve">
     <value>الصفحة الرئيسية</value>
   </data>
-  <data name="BaseLayoutContextFlyoutDetails.KeyboardAcceleratorTextOverride" xml:space="preserve">
-    <value>Ctrl+Shift+1</value>
-  </data>
-  <data name="BaseLayoutContextFlyoutTiles.KeyboardAcceleratorTextOverride" xml:space="preserve">
-    <value>Ctrl+Shift+2</value>
-  </data>
-  <data name="BaseLayoutContextFlyoutColumn.KeyboardAcceleratorTextOverride" xml:space="preserve">
-    <value>Ctrl+Shift+6</value>
-  </data>
   <data name="ArchiveExtractionCompletedSuccessfullyText" xml:space="preserve">
     <value>اكتمل استخراج الأرشيف بنجاح.</value>
   </data>
@@ -1713,8 +1713,8 @@
   <data name="Columns" xml:space="preserve">
     <value>الأعمدة</value>
   </data>
-  <data name="Tiles" xml:space="preserve">
-    <value>لوحات</value>
+  <data name="Cards" xml:space="preserve">
+    <value>Cards</value>
   </data>
   <data name="OpenFoldersInNewTab" xml:space="preserve">
     <value>فتح المجلدات في علامة تبويب جديدة</value>
@@ -1827,6 +1827,18 @@
   <data name="CompatibilityRegisterThisProgramForRestart" xml:space="preserve">
     <value>تسجيل هذا البرنامج لإعادة التشغيل</value>
   </data>
+  <data name="StartWindow" xml:space="preserve">
+    <value>Start window</value>
+  </data>
+  <data name="NormalWindow" xml:space="preserve">
+    <value>Normal window</value>
+  </data>
+  <data name="Minimized" xml:space="preserve">
+    <value>Minimized</value>
+  </data>
+  <data name="Maximized" xml:space="preserve">
+    <value>Maximized</value>
+  </data>
   <data name="RunAsAdministrator" xml:space="preserve">
     <value>تشغيل كمسؤول</value>
   </data>
@@ -1853,6 +1865,9 @@
   </data>
   <data name="SettingsSetAsDefaultFileManagerDescription" xml:space="preserve">
     <value>هذا الخيار يعدل سجل النظام ويمكن أن تكون له تأثيرات جانبية غير متوقعة على جهازك. تابع على مسؤوليتك الخاصة.</value>
+  </data>
+  <data name="ShowFlattenOptionsDescription" xml:space="preserve">
+    <value>العمليات المسطحة دائمة وغير موصى بها. استمر على مسؤوليتك الخاصة.</value>
   </data>
   <data name="FolderWidgetCreateNewLibraryDialogTitleText" xml:space="preserve">
     <value>إنشاء مكتبة</value>
@@ -1931,6 +1946,9 @@
   </data>
   <data name="CloseOtherTabs" xml:space="preserve">
     <value>إغلاق علامات التبويب الأخرى</value>
+  </data>
+  <data name="CloseAllTabs" xml:space="preserve">
+    <value>Close all tabs</value>
   </data>
   <data name="Music" xml:space="preserve">
     <value>موسيقى</value>
@@ -2027,6 +2045,21 @@
   </data>
   <data name="Compress" xml:space="preserve">
     <value>ضغط</value>
+  </data>
+  <data name="FlattenFolderDescription" xml:space="preserve">
+    <value>نقل جميع المحتويات من المجلدات الفرعية إلى الموقع المحدد</value>
+  </data>
+  <data name="FlattenFolder" xml:space="preserve">
+    <value>مجلد مسطح</value>
+  </data>
+  <data name="Flatten" xml:space="preserve">
+    <value>مسطحة</value>
+  </data>
+  <data name="FlattenFolderDialogContent" xml:space="preserve">
+    <value>تسطيح مجلد سينقل كل المحتويات من مجلداته الفرعية إلى الموقع المحدد. هذه العملية دائمة ولا يمكن التراجع عنها. باستخدام هذه الميزة التجريبية، فإنك تعترف بالمخاطر وتوافق على عدم تحميل فريق الملفات المسؤولية عن أي فقدان للبيانات.</value>
+  </data>
+  <data name="ShowFlattenOptions" xml:space="preserve">
+    <value>إظهار الخيارات المسطحة</value>
   </data>
   <data name="SelectFilesAndFoldersOnHover" xml:space="preserve">
     <value>حدد الملفات والمجلدات عند التنقل فوقها</value>
@@ -2163,6 +2196,9 @@
   <data name="WhatsNew" xml:space="preserve">
     <value>ما الجديد</value>
   </data>
+  <data name="WhatsNewDescription" xml:space="preserve">
+    <value>Open Release Notes</value>
+  </data>
   <data name="CannotCreateShortcutDialogTitle" xml:space="preserve">
     <value>إنشاء اختصار في هذا الموقع يتطلب امتيازات المسؤول</value>
   </data>
@@ -2248,7 +2284,7 @@
     <value>إظهار العناصر المخفية</value>
   </data>
   <data name="FormatDriveText" xml:space="preserve">
-    <value>هيأ...</value>
+    <value>تنسيق</value>
   </data>
   <data name="Help" xml:space="preserve">
     <value>المساعدة</value>
@@ -2358,6 +2394,9 @@
   <data name="ToggleShowHiddenItemsDescription" xml:space="preserve">
     <value>تبديل إذا كان سيتم عرض العناصر المخفية</value>
   </data>
+  <data name="ToggleDotFilesSettingDescription" xml:space="preserve">
+    <value>تبديل ما إذا كان سيتم عرض نقاط الملفات</value>
+  </data>
   <data name="ToggleShowFileExtensionsDescription" xml:space="preserve">
     <value>تبديل إذا كان سيتم عرض ملحقات الملف</value>
   </data>
@@ -2373,6 +2412,12 @@
   <data name="CopyPathDescription" xml:space="preserve">
     <value>نسخ مسار العناصر المحددة إلى الحافظة</value>
   </data>
+  <data name="CopyItemPathDescription" xml:space="preserve">
+    <value>Copy path of selected items to the clipboard</value>
+  </data>
+  <data name="CopyItemPathWithQuotesDescription" xml:space="preserve">
+    <value>Copy path of selected items with quotes to the clipboard</value>
+  </data>
   <data name="CopyPathWithQuotesDescription" xml:space="preserve">
     <value>نسخ مسار العناصر المحددة مع الاقتباسات إلى الحافظة</value>
   </data>
@@ -2381,6 +2426,9 @@
   </data>
   <data name="PasteItemDescription" xml:space="preserve">
     <value>لصق العناصر من الحافظة إلى المجلد الحالي</value>
+  </data>
+  <data name="PasteShortcutDescription" xml:space="preserve">
+    <value>Paste item(s) from clipboard to current folder as shortcuts</value>
   </data>
   <data name="PasteItemToSelectionDescription" xml:space="preserve">
     <value>لصق العناصر من الحافظة إلى المجلد المحدد</value>
@@ -2526,8 +2574,8 @@
   <data name="LayoutDetailsDescription" xml:space="preserve">
     <value>التبديل إلى عرض التفاصيل</value>
   </data>
-  <data name="LayoutTilesDescription" xml:space="preserve">
-    <value>التبديل إلى عرض المربعات</value>
+  <data name="LayoutCardsDescription" xml:space="preserve">
+    <value>Switch to cards view</value>
   </data>
   <data name="LayoutListDescription" xml:space="preserve">
     <value>التبديل إلى عرض القائمة</value>
@@ -2661,6 +2709,9 @@
   <data name="CloseOtherTabsSelectedDescription" xml:space="preserve">
     <value>إغلاق علامات التبويب غير علامة التبويب المحددة</value>
   </data>
+  <data name="CloseAllTabsDescription" xml:space="preserve">
+    <value>Close all tabs including the current tab</value>
+  </data>
   <data name="ReopenClosedTabDescription" xml:space="preserve">
     <value>إعادة فتح آخر علامة تبويب مغلقة</value>
   </data>
@@ -2677,10 +2728,10 @@
     <value>إغلاق اللوحة النشطة</value>
   </data>
   <data name="FocusOtherPane" xml:space="preserve">
-    <value>Focus other pane</value>
+    <value>تركيز اللوحة الأخرى</value>
   </data>
   <data name="FocusOtherPaneDescription" xml:space="preserve">
-    <value>Switch focus to the non active pane</value>
+    <value>تبديل التركيز إلى اللوحة غير النشطة</value>
   </data>
   <data name="ToggleSidebar" xml:space="preserve">
     <value>تبديل الشريط الجانبي</value>
@@ -3061,8 +3112,14 @@
   <data name="OpenProperties" xml:space="preserve">
     <value>فتح الخصائص</value>
   </data>
+  <data name="OpenClassicProperties" xml:space="preserve">
+    <value>فتح خصائص مستكشف الملفات</value>
+  </data>
   <data name="OpenPropertiesDescription" xml:space="preserve">
     <value>فتح نافذة الخصائص</value>
+  </data>
+  <data name="OpenClassicPropertiesDescription" xml:space="preserve">
+    <value>الترجمة الالية  العربية</value>
   </data>
   <data name="Locals" xml:space="preserve">
     <value>المحلية</value>
@@ -3126,7 +3183,7 @@
     <value>Mica Alt</value>
   </data>
   <data name="BackdropMaterial" xml:space="preserve">
-    <value>مادة الخلفية</value>
+    <value>Backdrop</value>
   </data>
   <data name="Solid" xml:space="preserve">
     <value>صلب</value>
@@ -3658,9 +3715,6 @@
   <data name="QuestionsAndDiscussions" xml:space="preserve">
     <value>الأسئلة والنقاشات</value>
   </data>
-  <data name="TilesViewSizeInfo" xml:space="preserve">
-    <value>الأحجام الإضافية غير متوفرة حتى الآن لعرض البلاط.</value>
-  </data>
   <data name="Compact" xml:space="preserve">
     <value>مدمج</value>
     <comment>Used to describe layout sizes</comment>
@@ -3855,52 +3909,135 @@
     <value>الحالة:</value>
   </data>
   <data name="ShowToolbar" xml:space="preserve">
-    <value>عرض شريط الأدوات</value>
-    <comment>Setting that controls if the Toolbar is shown in the main view</comment>
+    <value>Show toolbar</value>
+    <comment>Setting that controls if the toolbar is shown in the main view</comment>
   </data>
   <data name="TabActions" xml:space="preserve">
     <value>قائمة إجراءات علامة التبويب</value>
   </data>
   <data name="AddVerticalPane" xml:space="preserve">
-    <value>Add vertical pane</value>
+    <value>إضافة لوحة عمودية</value>
   </data>
   <data name="AddVerticalPaneDescription" xml:space="preserve">
-    <value>Add a vertical pane</value>
+    <value>إضافة لوحة عمودية</value>
   </data>
   <data name="AddHorizontalPane" xml:space="preserve">
-    <value>Add horizontal pane</value>
+    <value>إضافة لوحة أفقية</value>
   </data>
   <data name="AddHorizontalPaneDescription" xml:space="preserve">
-    <value>Add a horizontal pane</value>
+    <value>إضافة لوحة أفقية</value>
   </data>
   <data name="ArrangePanesVertically" xml:space="preserve">
-    <value>Arrange vertically</value>
+    <value>الترتيب عمودياً</value>
   </data>
   <data name="ArrangePanesVerticallyDescription" xml:space="preserve">
-    <value>Arrange panes vertically</value>
+    <value>ترتيب اللوحات عمودياً</value>
   </data>
   <data name="ArrangePanesHorizontally" xml:space="preserve">
-    <value>Arrange horizontally</value>
+    <value>الترتيب أفقياً</value>
   </data>
   <data name="ArrangePanesHorizontallyDescription" xml:space="preserve">
-    <value>Arrange panes horizontally</value>
+    <value>ترتيب اللوحات أفقياً</value>
   </data>
   <data name="AddPane" xml:space="preserve">
-    <value>Add pane</value>
+    <value>إضافة لوحة</value>
   </data>
   <data name="ShowTabActions" xml:space="preserve">
-    <value>Show tab actions button in the title bar</value>
+    <value>إظهار زر إجراءات علامة التبويب في شريط العنوان</value>
   </data>
   <data name="ArrangePanes" xml:space="preserve">
-    <value>Arrange panes</value>
+    <value>ترتيب اللوحات</value>
   </data>
   <data name="DefaultPaneArrangement" xml:space="preserve">
-    <value>Default pane arrangement</value>
+    <value>ترتيب اللوحة الافتراضي</value>
   </data>
   <data name="Horizontal" xml:space="preserve">
-    <value>Horizontal</value>
+    <value>أفقي</value>
   </data>
   <data name="Vertical" xml:space="preserve">
-    <value>Vertical</value>
+    <value>عمودي</value>
+  </data>
+  <data name="ShowSystemTrayIcon" xml:space="preserve">
+    <value>إظهار أيقونة الملفات في قائمة أيقونات النظام المخفية</value>
+  </data>
+  <data name="CPUThreads" xml:space="preserve">
+    <value>خيوط المعالج المركزي</value>
+  </data>
+  <data name="NavigateHomeDescription" xml:space="preserve">
+    <value>Navigate to the home page</value>
+  </data>
+  <data name="ShowHomeButton" xml:space="preserve">
+    <value>Show home button in address bar</value>
+  </data>
+  <data name="Toolbars" xml:space="preserve">
+    <value>Toolbars</value>
+  </data>
+  <data name="UserID" xml:space="preserve">
+    <value>User ID</value>
+  </data>
+  <data name="BulkRename" xml:space="preserve">
+    <value>Bulk rename</value>
+  </data>
+  <data name="CompressContents" xml:space="preserve">
+    <value>Compress contents</value>
+  </data>
+  <data name="ShowCreateAlternateDataStream" xml:space="preserve">
+    <value>Show option to create alternate data stream</value>
+  </data>
+  <data name="CreateAlternateDataStream" xml:space="preserve">
+    <value>Create alternate data stream</value>
+  </data>
+  <data name="CreateAlternateDataStreamDescription" xml:space="preserve">
+    <value>Create alternate data stream for the selected item(s)</value>
+  </data>
+  <data name="EnterDataStreamName" xml:space="preserve">
+    <value>Enter data stream name</value>
+  </data>
+  <data name="ErrorCreatingDataStreamTitle" xml:space="preserve">
+    <value>There was an error creating the alternate data stream</value>
+  </data>
+  <data name="ErrorCreatingDataStreamDescription" xml:space="preserve">
+    <value>Please note that alternate data streams only work on drives formatted as NTFS.</value>
+  </data>
+  <data name="DataStreamsAreHiddenTitle" xml:space="preserve">
+    <value>Alternate data streams are currently hidden</value>
+  </data>
+  <data name="DataStreamsAreHiddenDescription" xml:space="preserve">
+    <value>Would you like to display alternate data streams? You can modify this setting anytime from the files and folders settings page.</value>
+  </data>
+  <data name="ManageTags" xml:space="preserve">
+    <value>Manage tags</value>
+  </data>
+  <data name="Available" xml:space="preserve">
+    <value>Available</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="AlwaysSwitchToNewlyOpenedTab" xml:space="preserve">
+    <value>Always switch focus to newly created tab</value>
+  </data>
+  <data name="ToggleShelfPane" xml:space="preserve">
+    <value>Toggle the shelf pane</value>
+  </data>
+  <data name="ToggleShelfPaneDescription" xml:space="preserve">
+    <value>Toggle the shelf pane visibility</value>
+  </data>
+  <data name="ShowShelfPaneButtonInAddressBar" xml:space="preserve">
+    <value>Show shelf pane toggle in address bar</value>
+  </data>
+  <data name="Shelf" xml:space="preserve">
+    <value>Shelf</value>
+    <comment>'Shelf' refers to the Shelf Pane feature, where users can conveniently drag and drop files for quick access and perform bulk actions with ease.</comment>
+  </data>
+  <data name="ClearItems" xml:space="preserve">
+    <value>Clear items</value>
+  </data>
+  <data name="RemoveFromShelf" xml:space="preserve">
+    <value>Remove from shelf</value>
+  </data>
+  <data name="AddToShelf" xml:space="preserve">
+    <value>Add to shelf</value>
+    <comment>Tooltip that displays when dragging items to the Shelf Pane</comment>
   </data>
 </root>

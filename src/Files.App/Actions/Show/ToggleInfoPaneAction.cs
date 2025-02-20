@@ -1,9 +1,9 @@
-﻿// Copyright (c) 2024 Files Community
-// Licensed under the MIT License. See the LICENSE.
+﻿// Copyright (c) Files Community
+// Licensed under the MIT License.
 
 namespace Files.App.Actions
 {
-	internal sealed class ToggleInfoPaneAction : ObservableObject, IToggleAction
+	internal sealed partial class ToggleInfoPaneAction : ObservableObject, IToggleAction
 	{
 		private readonly InfoPaneViewModel viewModel;
 
@@ -14,7 +14,7 @@ namespace Files.App.Actions
 			=> "ToggleInfoPaneDescription".GetLocalizedResource();
 
 		public RichGlyph Glyph
-			=> new(opacityStyle: "ColorIconRightPane");
+			=> new(themedIconStyle: "App.ThemedIcons.PanelRight");
 
 		public HotKey HotKey
 			=> new(Keys.I, KeyModifiers.CtrlAlt);

@@ -1,11 +1,11 @@
-﻿// Copyright (c) 2024 Files Community
-// Licensed under the MIT License. See the LICENSE.
+﻿// Copyright (c) Files Community
+// Licensed under the MIT License.
 
 using Files.Shared.Helpers;
 
 namespace Files.App.Actions
 {
-	internal sealed class EditInNotepadAction : ObservableObject, IAction
+	internal sealed partial class EditInNotepadAction : ObservableObject, IAction
 	{
 		private readonly IContentPageContext context;
 
@@ -33,7 +33,7 @@ namespace Files.App.Actions
 
 		public Task ExecuteAsync(object? parameter = null)
 		{
-			return Task.WhenAll(context.SelectedItems.Select(item => Win32Helper.RunPowershellCommandAsync($"notepad '{item.ItemPath}\'", false)));
+			return Task.WhenAll(context.SelectedItems.Select(item => Win32Helper.RunPowershellCommandAsync($"notepad '{item.ItemPath}\'", PowerShellExecutionOptions.Hidden)));
 		}
 
 		private void Context_PropertyChanged(object? sender, PropertyChangedEventArgs e)

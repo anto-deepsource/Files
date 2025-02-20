@@ -1,9 +1,9 @@
-﻿// Copyright (c) 2024 Files Community
-// Licensed under the MIT License. See the LICENSE.
+﻿// Copyright (c) Files Community
+// Licensed under the MIT License.
 
 namespace Files.App.Actions
 {
-	internal sealed class PasteItemToSelectionAction : BaseUIAction, IAction
+	internal sealed partial class PasteItemToSelectionAction : BaseUIAction, IAction
 	{
 		private readonly IContentPageContext context;
 
@@ -14,7 +14,7 @@ namespace Files.App.Actions
 			=> "PasteItemToSelectionDescription".GetLocalizedResource();
 
 		public RichGlyph Glyph
-			=> new(opacityStyle: "ColorIconPaste");
+			=> new(themedIconStyle: "App.ThemedIcons.Paste");
 
 		public HotKey HotKey
 			=> new(Keys.V, KeyModifiers.CtrlShift);

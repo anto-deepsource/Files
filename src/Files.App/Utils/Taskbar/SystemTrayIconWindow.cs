@@ -1,5 +1,5 @@
-﻿// Copyright (c) 2024 Files Community
-// Licensed under the MIT License. See the LICENSE.
+﻿// Copyright (c) Files Community
+// Licensed under the MIT License.
 
 using System.Runtime.InteropServices;
 using Windows.Win32;
@@ -13,7 +13,7 @@ namespace Files.App.Utils.Taskbar
 	/// <br/>
 	/// This is provided to handle context menu and retrieve mouse events, not a regular window class.
 	/// </summary>
-	public sealed class SystemTrayIconWindow : IDisposable
+	public sealed partial class SystemTrayIconWindow : IDisposable
 	{
 		private SystemTrayIcon _trayIcon;
 
@@ -26,16 +26,19 @@ namespace Files.App.Utils.Taskbar
 		public unsafe SystemTrayIconWindow(SystemTrayIcon icon)
 		{
 			_windowProcedure = WindowProc;
-			this._trayIcon = icon;
-			string text = "FilesTrayIcon_" + this._trayIcon.Id;
+			_trayIcon = icon;
+			string text = "FilesTrayIcon_" + _trayIcon.Id;
 
 			fixed (char* ptr = text)
 			{
+				var pWindProc = Marshal.GetFunctionPointerForDelegate(_windowProcedure);
+				var pfnWndProc = (delegate* unmanaged[Stdcall]<HWND, uint, WPARAM, LPARAM, LRESULT>)pWindProc;
+
 				WNDCLASSEXW param = new()
 				{
 					cbSize = (uint)Marshal.SizeOf(typeof(WNDCLASSEXW)),
 					style = WNDCLASS_STYLES.CS_DBLCLKS,
-					lpfnWndProc = _windowProcedure,
+					lpfnWndProc = pfnWndProc,
 					cbClsExtra = 0,
 					cbWndExtra = 0,
 					hInstance = PInvoke.GetModuleHandle(default(PCWSTR)),

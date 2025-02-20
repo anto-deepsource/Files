@@ -1,15 +1,14 @@
-﻿// Copyright (c) 2024 Files Community
-// Licensed under the MIT License. See the LICENSE.
+﻿// Copyright (c) Files Community
+// Licensed under the MIT License.
 
 namespace Files.App.Actions
 {
-	internal sealed class OpenInNewWindowFromSidebarAction : BaseOpenInNewWindowAction
+	internal sealed partial class OpenInNewWindowFromSidebarAction : BaseOpenInNewWindowAction
 	{
 		public override HotKey HotKey
 			=> HotKey.None;
 
 		public override bool IsExecutable =>
-			UserSettingsService.GeneralSettingsService.ShowOpenInNewWindow &&
 			SidebarContext.IsItemRightClicked &&
 			SidebarContext.RightClickedItem is not null &&
 			SidebarContext.RightClickedItem.MenuOptions.IsLocationItem;

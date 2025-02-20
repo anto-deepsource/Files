@@ -1,5 +1,5 @@
-// Copyright (c) 2024 Files Community
-// Licensed under the MIT License. See the LICENSE.
+// Copyright (c) Files Community
+// Licensed under the MIT License.
 
 using System.IO;
 using Windows.Storage;
@@ -9,8 +9,10 @@ namespace Files.App.Utils.Storage
 	/// <summary>
 	/// Provides group of shell file system operation for given page instance.
 	/// </summary>
-	public sealed class ShellFilesystemOperations : IFilesystemOperations
+	public sealed partial class ShellFilesystemOperations : IFilesystemOperations
 	{
+		private readonly IStorageTrashBinService StorageTrashBinService = Ioc.Default.GetRequiredService<IStorageTrashBinService>();
+
 		private IShellPage _associatedInstance;
 
 		private FilesystemOperations _filesystemOperations;
@@ -59,7 +61,7 @@ namespace Files.App.Utils.Storage
 
 			var operationID = Guid.NewGuid().ToString();
 
-			using var r = cancellationToken.Register(CancelOperation, operationID, false);
+			await using var r = cancellationToken.Register(CancelOperation, operationID, false);
 
 			var sourceReplace = sourceNoSkip.Zip(collisionsNoSkip, (src, coll) => new { src, coll }).Where(item => item.coll == FileNameConflictResolveOptionType.ReplaceExisting).Select(item => item.src);
 			var destinationReplace = destinationNoSkip.Zip(collisionsNoSkip, (src, coll) => new { src, coll }).Where(item => item.coll == FileNameConflictResolveOptionType.ReplaceExisting).Select(item => item.src);
@@ -358,7 +360,7 @@ namespace Files.App.Utils.Storage
 			fsProgress.Report();
 
 			var deleteFilePaths = source.Select(s => s.Path).Distinct();
-			var deleteFromRecycleBin = source.Any() && RecycleBinHelpers.IsPathUnderRecycleBin(source.ElementAt(0).Path);
+			var deleteFromRecycleBin = source.Any() && StorageTrashBinService.IsUnderTrashBin(source.ElementAt(0).Path);
 
 			permanently |= deleteFromRecycleBin;
 
@@ -369,7 +371,7 @@ namespace Files.App.Utils.Storage
 			}
 
 			var operationID = Guid.NewGuid().ToString();
-			using var r = cancellationToken.Register(CancelOperation, operationID, false);
+			await using var r = cancellationToken.Register(CancelOperation, operationID, false);
 
 			var (success, response) = await FileOperationsHelpers.DeleteItemAsync(deleteFilePaths.ToArray(), permanently, MainWindow.Instance.WindowHandle.ToInt64(), asAdmin, progress, operationID);
 
@@ -481,7 +483,7 @@ namespace Files.App.Utils.Storage
 			var collisionsNoSkip = collisions.Where(c => c != FileNameConflictResolveOptionType.Skip);
 			var operationID = Guid.NewGuid().ToString();
 
-			using var r = cancellationToken.Register(CancelOperation, operationID, false);
+			await using var r = cancellationToken.Register(CancelOperation, operationID, false);
 
 			var sourceReplace = sourceNoSkip.Zip(collisionsNoSkip, (src, coll) => new { src, coll }).Where(item => item.coll == FileNameConflictResolveOptionType.ReplaceExisting).Select(item => item.src);
 			var destinationReplace = destinationNoSkip.Zip(collisionsNoSkip, (src, coll) => new { src, coll }).Where(item => item.coll == FileNameConflictResolveOptionType.ReplaceExisting).Select(item => item.src);
@@ -734,7 +736,7 @@ namespace Files.App.Utils.Storage
 			StatusCenterItemProgressModel fsProgress = new(progress, true, FileSystemStatusCode.InProgress);
 			fsProgress.Report();
 			var operationID = Guid.NewGuid().ToString();
-			using var r = cancellationToken.Register(CancelOperation, operationID, false);
+			await using var r = cancellationToken.Register(CancelOperation, operationID, false);
 
 			var moveResult = new ShellOperationResult();
 			var (status, response) = await FileOperationsHelpers.MoveItemAsync(source.Select(s => s.Path).ToArray(), [.. destination], false, MainWindow.Instance.WindowHandle.ToInt64(), asAdmin, progress, operationID);
@@ -845,9 +847,9 @@ namespace Files.App.Utils.Storage
 			List<ShellFileItem> binItems = null;
 			foreach (var src in source)
 			{
-				if (RecycleBinHelpers.IsPathUnderRecycleBin(src))
+				if (StorageTrashBinService.IsUnderTrashBin(src))
 				{
-					binItems ??= await RecycleBinHelpers.EnumerateRecycleBin();
+					binItems ??= await StorageTrashBinService.GetAllRecycleBinFoldersAsync();
 
 					// Might still be null because we're deserializing the list from Json
 					if (!binItems.IsEmpty())

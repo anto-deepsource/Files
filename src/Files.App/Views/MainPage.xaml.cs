@@ -1,9 +1,9 @@
-// Copyright (c) 2024 Files Community
-// Licensed under the MIT License. See the LICENSE.
+// Copyright (c) Files Community
+// Licensed under the MIT License.
 
+using CommunityToolkit.WinUI;
 using CommunityToolkit.WinUI.Helpers;
-using CommunityToolkit.WinUI.UI;
-using CommunityToolkit.WinUI.UI.Controls;
+using CommunityToolkit.WinUI.Controls;
 using Files.App.UserControls.Sidebar;
 using Microsoft.Extensions.Logging;
 using Microsoft.UI.Dispatching;
@@ -12,15 +12,13 @@ using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Navigation;
-using Sentry;
-using System.Data;
 using Windows.ApplicationModel;
-using Windows.ApplicationModel.DataTransfer;
 using Windows.Foundation.Metadata;
 using Windows.Graphics;
 using Windows.Services.Store;
 using WinRT.Interop;
 using VirtualKey = Windows.System.VirtualKey;
+using GridSplitter = Files.App.Controls.GridSplitter;
 
 namespace Files.App.Views
 {
@@ -28,23 +26,13 @@ namespace Files.App.Views
 	{
 		private IGeneralSettingsService generalSettingsService { get; } = Ioc.Default.GetRequiredService<IGeneralSettingsService>();
 		public IUserSettingsService UserSettingsService { get; }
-
+		private readonly IWindowContext WindowContext = Ioc.Default.GetRequiredService<IWindowContext>();
 		public ICommandManager Commands { get; }
-
-		public IWindowContext WindowContext { get; }
-
 		public SidebarViewModel SidebarAdaptiveViewModel { get; }
-
 		public MainPageViewModel ViewModel { get; }
-
 		public StatusCenterViewModel OngoingTasksViewModel { get; }
 
-		public static AppModel AppModel
-			=> App.AppModel;
-
 		private bool keyReleased = true;
-
-		private bool isAppRunningAsAdmin => ElevationHelpers.IsAppRunAsAdmin();
 
 		private DispatcherQueueTimer _updateDateDisplayTimer;
 
@@ -55,7 +43,6 @@ namespace Files.App.Views
 			// Dependency Injection
 			UserSettingsService = Ioc.Default.GetRequiredService<IUserSettingsService>();
 			Commands = Ioc.Default.GetRequiredService<ICommandManager>();
-			WindowContext = Ioc.Default.GetRequiredService<IWindowContext>();
 			SidebarAdaptiveViewModel = Ioc.Default.GetRequiredService<SidebarViewModel>();
 			SidebarAdaptiveViewModel.PaneFlyout = (MenuFlyout)Resources["SidebarContextMenu"];
 			ViewModel = Ioc.Default.GetRequiredService<MainPageViewModel>();
@@ -113,7 +100,7 @@ namespace Files.App.Views
 				SecondaryButtonText = "DontShowAgain".ToLocalized()
 			};
 
-			var result = await runningAsAdminPrompt.TryShowAsync();
+			var result = await SetContentDialogRoot(runningAsAdminPrompt).TryShowAsync();
 
 			if (result == ContentDialogResult.Secondary)
 				UserSettingsService.ApplicationSettingsService.ShowRunningAsAdminPrompt = false;
@@ -132,7 +119,7 @@ namespace Files.App.Views
 		{
 			switch (e.SettingName)
 			{
-				case nameof(IInfoPaneSettingsService.IsEnabled):
+				case nameof(IInfoPaneSettingsService.IsInfoPaneEnabled):
 					LoadPaneChanged();
 					break;
 			}
@@ -141,6 +128,7 @@ namespace Files.App.Views
 		private void HorizontalMultitaskingControl_Loaded(object sender, RoutedEventArgs e)
 		{
 			TabControl.DragArea.SizeChanged += (_, _) => MainWindow.Instance.RaiseSetTitleBarDragRegion(SetTitleBarDragRegion);
+			TabControl.SizeChanged += (_, _) => MainWindow.Instance.RaiseSetTitleBarDragRegion(SetTitleBarDragRegion);
 			if (ViewModel.MultitaskingControl is not TabBar)
 			{
 				ViewModel.MultitaskingControl = TabControl;
@@ -248,13 +236,19 @@ namespace Files.App.Views
 				default:
 					var currentModifiers = HotKeyHelpers.GetCurrentKeyModifiers();
 					HotKey hotKey = new((Keys)e.Key, currentModifiers);
+					var source = e.OriginalSource as DependencyObject;
 
 					// A textbox takes precedence over certain hotkeys.
-					if (e.OriginalSource is DependencyObject source && source.FindAscendantOrSelf<TextBox>() is not null)
+					if (source?.FindAscendantOrSelf<TextBox>() is not null)
 						break;
 
 					// Execute command for hotkey
 					var command = Commands[hotKey];
+
+					if (command.Code is CommandCodes.OpenItem && source?.FindAscendantOrSelf<PathBreadcrumb>() is not null)
+						break;
+					
+
 					if (command.Code is not CommandCodes.None && keyReleased)
 					{
 						keyReleased = false;
@@ -307,7 +301,7 @@ namespace Files.App.Views
 			if
 			(
 				AppLifecycleHelper.AppEnvironment is not AppEnvironment.Dev &&
-				isAppRunningAsAdmin &&
+				WindowContext.IsRunningAsAdmin &&
 				UserSettingsService.ApplicationSettingsService.ShowRunningAsAdminPrompt
 			)
 			{
@@ -318,8 +312,8 @@ namespace Files.App.Views
 			if (Package.Current.Id.Name != "49306atecsolution.FilesUWP" || UserSettingsService.ApplicationSettingsService.ClickedToReviewApp)
 				return;
 
-			var totalLaunchCount = SystemInformation.Instance.TotalLaunchCount;
-			if (totalLaunchCount is 15 or 30 or 60)
+			var totalLaunchCount = AppLifecycleHelper.TotalLaunchCount;
+			if (totalLaunchCount is 50 or 200)
 			{
 				// Prompt user to review app in the Store
 				DispatcherQueue.TryEnqueue(async () => await PromptForReviewAsync());
@@ -452,7 +446,7 @@ namespace Files.App.Views
 					(MainWindow.Instance.Bounds.Width > 450 && MainWindow.Instance.Bounds.Height > 450 || RootGrid.ActualWidth > 700 && MainWindow.Instance.Bounds.Height > 360);
 
 				ViewModel.ShouldPreviewPaneBeDisplayed = (!isHomePage || isMultiPane) && isBigEnough;
-				ViewModel.ShouldPreviewPaneBeActive = UserSettingsService.InfoPaneSettingsService.IsEnabled && ViewModel.ShouldPreviewPaneBeDisplayed;
+				ViewModel.ShouldPreviewPaneBeActive = UserSettingsService.InfoPaneSettingsService.IsInfoPaneEnabled && ViewModel.ShouldPreviewPaneBeDisplayed;
 				ViewModel.ShouldViewControlBeDisplayed = SidebarAdaptiveViewModel.PaneHolder?.ActivePane?.InstanceViewModel?.IsPageTypeNotHome ?? false;
 
 				UpdatePositioning();
@@ -497,16 +491,8 @@ namespace Files.App.Views
 
 		private void PaneSplitter_ManipulationStarted(object sender, ManipulationStartedRoutedEventArgs e)
 		{
-			this.ChangeCursor(InputSystemCursor.Create(PaneSplitter.GripperCursor == GridSplitter.GripperCursorType.SizeWestEast ?
+			this.ChangeCursor(InputSystemCursor.Create(InfoPane.Position == PreviewPanePositions.Right ?
 				InputSystemCursorShape.SizeWestEast : InputSystemCursorShape.SizeNorthSouth));
-		}
-
-		private void TogglePaneButton_Click(object sender, RoutedEventArgs e)
-		{
-			if (SidebarControl.DisplayMode == SidebarDisplayMode.Minimal)
-			{
-				SidebarControl.IsPaneOpen = !SidebarControl.IsPaneOpen;
-			}
 		}
 	}
 }

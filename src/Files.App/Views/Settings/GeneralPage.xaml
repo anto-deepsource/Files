@@ -1,4 +1,4 @@
-﻿<!--  Copyright (c) 2024 Files Community. Licensed under the MIT License. See the LICENSE.  -->
+﻿<!--  Copyright (c) Files Community. Licensed under the MIT License.  -->
 <Page
 	x:Class="Files.App.Views.Settings.GeneralPage"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -6,7 +6,6 @@
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:helpers="using:Files.App.Helpers"
 	xmlns:i="using:Microsoft.Xaml.Interactivity"
-	xmlns:icore="using:Microsoft.Xaml.Interactions.Core"
 	xmlns:items="using:Files.App.Data.Items"
 	xmlns:local="using:Files.App.UserControls.Settings"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -15,7 +14,7 @@
 	mc:Ignorable="d">
 
 	<Page.Resources>
-		<ResourceDictionary Source="/Styles/RightAlignedToggleSwitchStyle.xaml" />
+		<ResourceDictionary Source="/Styles/ToggleSwitchStyles.xaml" />
 	</Page.Resources>
 
 	<Page.DataContext>
@@ -27,11 +26,6 @@
 			HorizontalAlignment="Stretch"
 			VerticalAlignment="Stretch"
 			Spacing="4">
-			<StackPanel.ChildrenTransitions>
-				<TransitionCollection>
-					<EntranceThemeTransition />
-				</TransitionCollection>
-			</StackPanel.ChildrenTransitions>
 
 			<!--  Title  -->
 			<TextBlock
@@ -190,6 +184,7 @@
 				</local:SettingsBlockControl.ExpandableContent>
 			</local:SettingsBlockControl>
 
+			<!--  Dual Pane  -->
 			<local:SettingsBlockControl Title="{helpers:ResourceString Name=SettingsMultitaskingAlwaysOpenDualPane}" HorizontalAlignment="Stretch">
 				<local:SettingsBlockControl.Icon>
 					<FontIcon Glyph="&#xE89F;" />
@@ -210,6 +205,19 @@
 				</local:SettingsBlockControl.ExpandableContent>
 			</local:SettingsBlockControl>
 
+			<!--  Switch to new tab  -->
+			<local:SettingsBlockControl Title="{helpers:ResourceString Name=AlwaysSwitchToNewlyOpenedTab}" HorizontalAlignment="Stretch">
+				<local:SettingsBlockControl.Icon>
+					<FontIcon Glyph="&#xE8AB;" />
+				</local:SettingsBlockControl.Icon>
+				<ToggleSwitch
+					x:Name="AlwaysSwitchToNewlyOpenedTab"
+					AutomationProperties.Name="{helpers:ResourceString Name=AlwaysSwitchToNewlyOpenedTab}"
+					IsOn="{x:Bind ViewModel.AlwaysSwitchToNewlyOpenedTab, Mode=TwoWay}"
+					Style="{StaticResource RightAlignedToggleSwitchStyle}" />
+			</local:SettingsBlockControl>
+
+			<!--  Widgets  -->
 			<local:SettingsBlockControl Title="{helpers:ResourceString Name=Widgets}" HorizontalAlignment="Stretch">
 				<local:SettingsBlockControl.Icon>
 					<FontIcon Glyph="&#xF246;" />
@@ -309,6 +317,14 @@
 								Style="{StaticResource RightAlignedToggleSwitchStyle}" />
 						</local:SettingsBlockControl>
 
+						<!--  Create alternate data stream  -->
+						<local:SettingsBlockControl Title="{helpers:ResourceString Name=ShowCreateAlternateDataStream}" HorizontalAlignment="Stretch">
+							<ToggleSwitch
+								AutomationProperties.Name="{helpers:ResourceString Name=ShowCreateAlternateDataStream}"
+								IsOn="{x:Bind ViewModel.ShowCreateAlternateDataStream, Mode=TwoWay}"
+								Style="{StaticResource RightAlignedToggleSwitchStyle}" />
+						</local:SettingsBlockControl>
+
 						<!--  Create shortcut  -->
 						<local:SettingsBlockControl Title="{helpers:ResourceString Name=ShowCreateShortcut}" HorizontalAlignment="Stretch">
 							<ToggleSwitch
@@ -324,6 +340,15 @@
 								IsOn="{x:Bind ViewModel.ShowCompressionOptions, Mode=TwoWay}"
 								Style="{StaticResource RightAlignedToggleSwitchStyle}" />
 						</local:SettingsBlockControl>
+
+						<!--  Flatten options  -->
+						<!--  TODO uncomment code when feature is marked as stable  -->
+						<!--<local:SettingsBlockControl Title="{helpers:ResourceString Name=ShowFlattenOptions}" HorizontalAlignment="Stretch">
+							<ToggleSwitch
+								AutomationProperties.Name="{helpers:ResourceString Name=ShowFlattenOptions}"
+								IsOn="{x:Bind ViewModel.ShowFlattenOptions, Mode=TwoWay}"
+								Style="{StaticResource RightAlignedToggleSwitchStyle}" />
+						</local:SettingsBlockControl>-->
 
 						<!--  Send To  -->
 						<local:SettingsBlockControl Title="{helpers:ResourceString Name=ShowSendToMenu}" HorizontalAlignment="Stretch">

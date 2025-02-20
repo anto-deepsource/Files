@@ -1,5 +1,5 @@
-// Copyright (c) 2024 Files Community
-// Licensed under the MIT License. See the LICENSE.
+// Copyright (c) Files Community
+// Licensed under the MIT License.
 
 using System.Collections.Frozen;
 using Files.App.Dialogs;
@@ -35,6 +35,7 @@ namespace Files.App.Services
 				{ typeof(GitHubLoginDialogViewModel), () => new GitHubLoginDialog() },
 				{ typeof(FileTooLargeDialogViewModel), () => new FileTooLargeDialog() },
 				{ typeof(ReleaseNotesDialogViewModel), () => new ReleaseNotesDialog() },
+				{ typeof(BulkRenameDialogViewModel), () => new BulkRenameDialog() },
 			}.ToFrozenDictionary();
 		}
 

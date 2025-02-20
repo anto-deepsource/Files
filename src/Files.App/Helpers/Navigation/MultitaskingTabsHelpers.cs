@@ -1,5 +1,5 @@
-// Copyright (c) 2024 Files Community
-// Licensed under the MIT License. See the LICENSE.
+// Copyright (c) Files Community
+// Licensed under the MIT License.
 
 using Files.App.UserControls.TabBar;
 using Files.App.ViewModels;
@@ -38,6 +38,15 @@ namespace Files.App.Helpers
 			{
 				var tabs = MainPageViewModel.AppInstances;
 				tabs.Where((t) => t != clickedTab).ToList().ForEach(tab => multitaskingControl.CloseTab(tab));
+			}
+		}
+		
+		public static void CloseAllTabs(ITabBar multitaskingControl)
+		{
+			if (multitaskingControl is not null)
+			{
+				var tabs = MainPageViewModel.AppInstances;
+				tabs.ToList().ForEach(tab => multitaskingControl.CloseTab(tab));
 			}
 		}
 

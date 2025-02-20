@@ -1,5 +1,5 @@
-﻿// Copyright (c) 2024 Files Community
-// Licensed under the MIT License. See the LICENSE.
+﻿// Copyright (c) Files Community
+// Licensed under the MIT License.
 
 namespace Files.App.Actions
 {
@@ -14,7 +14,7 @@ namespace Files.App.Actions
 			=> "ClearSelectionDescription".GetLocalizedResource();
 
 		public RichGlyph Glyph
-			=> new("\uE8E6");
+			=> new(themedIconStyle: "App.ThemedIcons.SelectNone");
 
 		public bool IsExecutable
 		{

@@ -1,5 +1,5 @@
-// Copyright(c) 2024 Files Community
-// Licensed under the MIT License. See the LICENSE.
+// Copyright(c) Files Community
+// Licensed under the MIT License.
 
 using Files.App.Converters;
 using Microsoft.UI.Xaml;
@@ -12,7 +12,7 @@ namespace Files.App.ViewModels.Properties
 	/// <summary>
 	/// This class is represents a system file property from the Windows.Storage API
 	/// </summary>
-	public sealed class FileProperty : ObservableObject
+	public sealed partial class FileProperty : ObservableObject
 	{
 		/// <summary>
 		/// The name to display
@@ -231,7 +231,7 @@ namespace Files.App.ViewModels.Properties
 			{
 				try
 				{
-					return EnumeratedList.TryGetValue(Convert.ToInt32(Value), out var value) ? 
+					return EnumeratedList.TryGetValue(Convert.ToInt32(Value), out var value) ?
 						value.GetLocalizedResource() : null;
 				}
 				catch

@@ -1,9 +1,9 @@
-﻿// Copyright (c) 2024 Files Community
-// Licensed under the MIT License. See the LICENSE.
+﻿// Copyright (c) Files Community
+// Licensed under the MIT License.
 
 namespace Files.App.Actions
 {
-	internal sealed class CreateShortcutAction : BaseUIAction, IAction
+	internal sealed partial class CreateShortcutAction : BaseUIAction, IAction
 	{
 		private readonly IContentPageContext context;
 
@@ -14,7 +14,7 @@ namespace Files.App.Actions
 			=> "CreateShortcutDescription".GetLocalizedResource();
 
 		public RichGlyph Glyph
-			=> new(opacityStyle: "ColorIconShortcut");
+			=> new(themedIconStyle: "App.ThemedIcons.URL");
 
 		public override bool IsExecutable =>
 			context.HasSelection &&

@@ -1,5 +1,5 @@
-// Copyright (c) 2024 Files Community
-// Licensed under the MIT License. See the LICENSE.
+// Copyright (c) Files Community
+// Licensed under the MIT License.
 
 using Microsoft.Extensions.Logging;
 using System.IO;
@@ -80,6 +80,8 @@ namespace Files.App.Services
 		{
 			try
 			{
+				App.QuickAccessManager.PinnedItemsWatcher.EnableRaisingEvents = false;
+
 				if (JumpList.IsSupported())
 				{
 					var instance = await JumpList.LoadCurrentAsync();
@@ -97,6 +99,10 @@ namespace Files.App.Services
 			}
 			catch
 			{
+			}
+			finally
+			{
+				SafetyExtensions.IgnoreExceptions(() => App.QuickAccessManager.PinnedItemsWatcher.EnableRaisingEvents = true);
 			}
 		}
 
@@ -142,7 +148,6 @@ namespace Files.App.Services
 
 				if (displayName is null)
 				{
-					var localSettings = ApplicationData.Current.LocalSettings;
 					if (path.Equals(Constants.UserEnvironmentPaths.DesktopPath, StringComparison.OrdinalIgnoreCase))
 						displayName = "ms-resource:///Resources/Desktop";
 					else if (path.Equals(Constants.UserEnvironmentPaths.DownloadsPath, StringComparison.OrdinalIgnoreCase))

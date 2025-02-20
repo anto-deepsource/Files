@@ -1,5 +1,5 @@
-// Copyright (c) 2024 Files Community
-// Licensed under the MIT License. See the LICENSE.
+// Copyright (c) Files Community
+// Licensed under the MIT License.
 
 using Sentry;
 using Files.App.Actions;
@@ -10,7 +10,7 @@ using Microsoft.UI.Xaml.Input;
 namespace Files.App.Data.Commands
 {
 	[DebuggerDisplay("Command {Code}")]
-	internal sealed class ActionCommand : ObservableObject, IRichCommand
+	internal sealed partial class ActionCommand : ObservableObject, IRichCommand
 	{
 		private IActionsSettingsService ActionsSettingsService { get; } = Ioc.Default.GetRequiredService<IActionsSettingsService>();
 
@@ -48,7 +48,7 @@ namespace Files.App.Data.Commands
 		public FontIcon? FontIcon { get; }
 
 		/// <inheritdoc/>
-		public Style? OpacityStyle { get; }
+		public Style? ThemedIconStyle { get; }
 
 		private bool isCustomHotKeys = false;
 		/// <inheritdoc/>
@@ -118,7 +118,7 @@ namespace Files.App.Data.Commands
 			Action = action;
 			Icon = action.Glyph.ToIcon();
 			FontIcon = action.Glyph.ToFontIcon();
-			OpacityStyle = action.Glyph.ToOpacityStyle();
+			ThemedIconStyle = action.Glyph.ToThemedIconStyle();
 			hotKeys = CommandManager.GetDefaultKeyBindings(action);
 			DefaultHotKeys = CommandManager.GetDefaultKeyBindings(action);
 
@@ -145,7 +145,8 @@ namespace Files.App.Data.Commands
 		{
 			if (IsExecutable)
 			{
-				SentrySdk.Metrics.Increment("actions", tags: new Dictionary<string, string> { { "command", Code.ToString() } });
+				// Re-enable when Metris feature is available again
+				// SentrySdk.Metrics.Increment("actions", tags: new Dictionary<string, string> { { "command", Code.ToString() } });
 				return Action.ExecuteAsync(parameter);
 			}
 

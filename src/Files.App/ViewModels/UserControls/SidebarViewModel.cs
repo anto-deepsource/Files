@@ -1,9 +1,8 @@
-// Copyright (c) 2024 Files Community
-// Licensed under the MIT License. See the LICENSE.
+// Copyright (c) Files Community
+// Licensed under the MIT License.
 
 using Files.App.Helpers.ContextFlyouts;
 using Files.App.UserControls.Sidebar;
-using Files.App.ViewModels.Dialogs;
 using Microsoft.UI.Input;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -12,17 +11,15 @@ using Microsoft.UI.Xaml.Media.Imaging;
 using System.Collections.Specialized;
 using System.IO;
 using System.Windows.Input;
-using Windows.ApplicationModel.DataTransfer.DragDrop;
 using Windows.ApplicationModel.DataTransfer;
+using Windows.ApplicationModel.DataTransfer.DragDrop;
 using Windows.Storage;
 using Windows.System;
 using Windows.UI.Core;
-using Files.Core.Storage;
-using Files.Core.Storage.Extensions;
 
 namespace Files.App.ViewModels.UserControls
 {
-	public sealed class SidebarViewModel : ObservableObject, IDisposable, ISidebarViewModel
+	public sealed partial class SidebarViewModel : ObservableObject, IDisposable, ISidebarViewModel
 	{
 		private INetworkService NetworkService { get; } = Ioc.Default.GetRequiredService<INetworkService>();
 		private IUserSettingsService UserSettingsService { get; } = Ioc.Default.GetRequiredService<IUserSettingsService>();
@@ -247,9 +244,9 @@ namespace Files.App.ViewModels.UserControls
 
 			App.QuickAccessManager.Model.DataChanged += Manager_DataChanged;
 			App.LibraryManager.DataChanged += Manager_DataChanged;
-			drivesViewModel.Drives.CollectionChanged += (x, args) => Manager_DataChanged(SectionType.Drives, args);
+			drivesViewModel.Drives.CollectionChanged += Manager_DataChangedForDrives;
 			CloudDrivesManager.DataChanged += Manager_DataChanged;
-			NetworkService.Computers.CollectionChanged += (x, args) => Manager_DataChanged(SectionType.Network, args);
+			NetworkService.Computers.CollectionChanged += Manager_DataChangedForNetworkComputers;
 			WSLDistroManager.DataChanged += Manager_DataChanged;
 			App.FileTagsManager.DataChanged += Manager_DataChanged;
 			SidebarDisplayMode = UserSettingsService.AppearanceSettingsService.IsSidebarOpen ? SidebarDisplayMode.Expanded : SidebarDisplayMode.Compact;
@@ -257,11 +254,7 @@ namespace Files.App.ViewModels.UserControls
 			HideSectionCommand = new RelayCommand(HideSection);
 			UnpinItemCommand = new RelayCommand(UnpinItem);
 			PinItemCommand = new RelayCommand(PinItem);
-			OpenInNewTabCommand = new AsyncRelayCommand(OpenInNewTabAsync);
-			OpenInNewWindowCommand = new AsyncRelayCommand(OpenInNewWindowAsync);
-			OpenInNewPaneCommand = new AsyncRelayCommand(OpenInNewPaneAsync);
-			EjectDeviceCommand = new AsyncRelayCommand(EjectDeviceAsync);
-			FormatDriveCommand = new RelayCommand(FormatDrive);
+			EjectDeviceCommand = new RelayCommand(EjectDevice);
 			OpenPropertiesCommand = new RelayCommand<CommandBarFlyout>(OpenProperties);
 			ReorderItemsCommand = new AsyncRelayCommand(ReorderItemsAsync);
 		}
@@ -291,6 +284,10 @@ namespace Files.App.ViewModels.UserControls
 				await SyncSidebarItemsAsync(section, getElements, e);
 			});
 		}
+
+		private void Manager_DataChangedForDrives(object? sender, NotifyCollectionChangedEventArgs e) => Manager_DataChanged(SectionType.Drives, e);
+
+		private void Manager_DataChangedForNetworkComputers(object? sender, NotifyCollectionChangedEventArgs e) => Manager_DataChanged(SectionType.Network, e);
 
 		private async Task SyncSidebarItemsAsync(LocationItem section, Func<IReadOnlyList<INavigationControlItem>> getElements, NotifyCollectionChangedEventArgs e)
 		{
@@ -397,7 +394,6 @@ namespace Files.App.ViewModels.UserControls
 				}
 			}
 
-			section.IsExpanded = Ioc.Default.GetRequiredService<SettingsViewModel>().Get(section.Text == "Pinned".GetLocalizedResource(), $"section:{section.Text.Replace('\\', '_')}");
 			section.PropertyChanged += Section_PropertyChanged;
 		}
 
@@ -405,7 +401,30 @@ namespace Files.App.ViewModels.UserControls
 		{
 			if (sender is LocationItem section && e.PropertyName == nameof(section.IsExpanded))
 			{
-				Ioc.Default.GetRequiredService<SettingsViewModel>().Set(section.IsExpanded, $"section:{section.Text.Replace('\\', '_')}");
+				switch (section.Text)
+				{
+					case var text when text == "Pinned".GetLocalizedResource():
+						UserSettingsService.GeneralSettingsService.IsPinnedSectionExpanded = section.IsExpanded;
+						break;
+					case var text when text == "SidebarLibraries".GetLocalizedResource():
+						UserSettingsService.GeneralSettingsService.IsLibrarySectionExpanded = section.IsExpanded;
+						break;
+					case var text when text == "Drives".GetLocalizedResource():
+						UserSettingsService.GeneralSettingsService.IsDriveSectionExpanded = section.IsExpanded;
+						break;
+					case var text when text == "SidebarCloudDrives".GetLocalizedResource():
+						UserSettingsService.GeneralSettingsService.IsCloudDriveSectionExpanded = section.IsExpanded;
+						break;
+					case var text when text == "Network".GetLocalizedResource():
+						UserSettingsService.GeneralSettingsService.IsNetworkSectionExpanded = section.IsExpanded;
+						break;
+					case var text when text == "WSL".GetLocalizedResource():
+						UserSettingsService.GeneralSettingsService.IsWslSectionExpanded = section.IsExpanded;
+						break;
+					case var text when text == "FileTags".GetLocalizedResource():
+						UserSettingsService.GeneralSettingsService.IsFileTagsSectionExpanded = section.IsExpanded;
+						break;
+				}
 			}
 		}
 
@@ -448,6 +467,7 @@ namespace Files.App.ViewModels.UserControls
 						section = BuildSection("Pinned".GetLocalizedResource(), sectionType, new ContextMenuOptions { ShowHideSection = true }, false);
 						icon = new BitmapImage(new Uri(Constants.FluentIconsPaths.StarIcon));
 						section.IsHeader = true;
+						section.IsExpanded = UserSettingsService.GeneralSettingsService.IsPinnedSectionExpanded;
 
 						break;
 					}
@@ -461,6 +481,7 @@ namespace Files.App.ViewModels.UserControls
 						section = BuildSection("SidebarLibraries".GetLocalizedResource(), sectionType, new ContextMenuOptions { IsLibrariesHeader = true, ShowHideSection = true }, false);
 						iconIdex = Constants.ImageRes.Libraries;
 						section.IsHeader = true;
+						section.IsExpanded = UserSettingsService.GeneralSettingsService.IsLibrarySectionExpanded;
 
 						break;
 					}
@@ -474,6 +495,7 @@ namespace Files.App.ViewModels.UserControls
 						section = BuildSection("Drives".GetLocalizedResource(), sectionType, new ContextMenuOptions { ShowHideSection = true }, false);
 						iconIdex = Constants.ImageRes.ThisPC;
 						section.IsHeader = true;
+						section.IsExpanded = UserSettingsService.GeneralSettingsService.IsDriveSectionExpanded;
 
 						break;
 					}
@@ -487,6 +509,7 @@ namespace Files.App.ViewModels.UserControls
 						section = BuildSection("SidebarCloudDrives".GetLocalizedResource(), sectionType, new ContextMenuOptions { ShowHideSection = true }, false);
 						icon = new BitmapImage(new Uri(Constants.FluentIconsPaths.CloudDriveIcon));
 						section.IsHeader = true;
+						section.IsExpanded = UserSettingsService.GeneralSettingsService.IsCloudDriveSectionExpanded;
 
 						break;
 					}
@@ -500,6 +523,7 @@ namespace Files.App.ViewModels.UserControls
 						section = BuildSection("Network".GetLocalizedResource(), sectionType, new ContextMenuOptions { ShowHideSection = true }, false);
 						iconIdex = Constants.ImageRes.Network;
 						section.IsHeader = true;
+						section.IsExpanded = UserSettingsService.GeneralSettingsService.IsNetworkSectionExpanded;
 
 						break;
 					}
@@ -513,6 +537,7 @@ namespace Files.App.ViewModels.UserControls
 						section = BuildSection("WSL".GetLocalizedResource(), sectionType, new ContextMenuOptions { ShowHideSection = true }, false);
 						icon = new BitmapImage(new Uri(Constants.WslIconsPaths.GenericIcon));
 						section.IsHeader = true;
+						section.IsExpanded = UserSettingsService.GeneralSettingsService.IsWslSectionExpanded;
 
 						break;
 					}
@@ -523,9 +548,10 @@ namespace Files.App.ViewModels.UserControls
 						{
 							break;
 						}
-						section = BuildSection("FileTags".GetLocalizedResource(), sectionType, new ContextMenuOptions { ShowHideSection = true }, false);
+						section = BuildSection("FileTags".GetLocalizedResource(), sectionType, new ContextMenuOptions { IsTagsHeader = true, ShowHideSection = true }, false);
 						icon = new BitmapImage(new Uri(Constants.FluentIconsPaths.FileTagsIcon));
 						section.IsHeader = true;
+						section.IsExpanded = UserSettingsService.GeneralSettingsService.IsFileTagsSectionExpanded;
 
 						break;
 					}
@@ -642,9 +668,9 @@ namespace Files.App.ViewModels.UserControls
 
 			App.QuickAccessManager.Model.DataChanged -= Manager_DataChanged;
 			App.LibraryManager.DataChanged -= Manager_DataChanged;
-			drivesViewModel.Drives.CollectionChanged -= (x, args) => Manager_DataChanged(SectionType.Drives, args);
+			drivesViewModel.Drives.CollectionChanged -= Manager_DataChangedForDrives;
 			CloudDrivesManager.DataChanged -= Manager_DataChanged;
-			NetworkService.Computers.CollectionChanged -= (x, args) => Manager_DataChanged(SectionType.Network, args);
+			NetworkService.Computers.CollectionChanged -= Manager_DataChangedForNetworkComputers;
 			WSLDistroManager.DataChanged -= Manager_DataChanged;
 			App.FileTagsManager.DataChanged -= Manager_DataChanged;
 		}
@@ -735,7 +761,7 @@ namespace Files.App.ViewModels.UserControls
 				middleClickPressed) &&
 				navigationControlItem.Path is not null)
 			{
-				await NavigationHelpers.OpenPathInNewTab(navigationControlItem.Path, false);
+				await NavigationHelpers.OpenPathInNewTab(navigationControlItem.Path);
 				return;
 			}
 
@@ -801,42 +827,11 @@ namespace Files.App.ViewModels.UserControls
 
 		private ICommand UnpinItemCommand { get; }
 
-		private ICommand OpenInNewTabCommand { get; }
-
-		private ICommand OpenInNewWindowCommand { get; }
-
-		private ICommand OpenInNewPaneCommand { get; }
-
 		private ICommand EjectDeviceCommand { get; }
-
-		private ICommand FormatDriveCommand { get; }
 
 		private ICommand OpenPropertiesCommand { get; }
 
 		private ICommand ReorderItemsCommand { get; }
-
-		private async Task OpenInNewPaneAsync()
-		{
-			if (await DriveHelpers.CheckEmptyDrive(rightClickedItem.Path))
-				return;
-			PaneHolder.OpenSecondaryPane(rightClickedItem.Path);
-		}
-
-		private async Task OpenInNewTabAsync()
-		{
-			if (await DriveHelpers.CheckEmptyDrive(rightClickedItem.Path))
-				return;
-
-			await NavigationHelpers.OpenPathInNewTab(rightClickedItem.Path, false);
-		}
-
-		private async Task OpenInNewWindowAsync()
-		{
-			if (await DriveHelpers.CheckEmptyDrive(rightClickedItem.Path))
-				return;
-
-			await NavigationHelpers.OpenPathInNewWindowAsync(rightClickedItem.Path);
-		}
 
 		private void PinItem()
 		{
@@ -920,15 +915,9 @@ namespace Files.App.ViewModels.UserControls
 			menu.Closed += flyoutClosed;
 		}
 
-		private async Task EjectDeviceAsync()
+		private void EjectDevice()
 		{
-			var result = await DriveHelpers.EjectDeviceAsync(rightClickedItem.Path);
-			await UIHelpers.ShowDeviceEjectResultAsync(rightClickedItem is DriveItem driveItem ? driveItem.Type : Data.Items.DriveType.Unknown, result);
-		}
-
-		private void FormatDrive()
-		{
-			Win32Helper.OpenFormatDriveDialog(rightClickedItem.Path);
+			DriveHelpers.EjectDeviceAsync(rightClickedItem.Path);
 		}
 
 		private List<ContextMenuFlyoutItemViewModel> GetLocationItemMenuItems(INavigationControlItem item, CommandBarFlyout menu)
@@ -950,14 +939,14 @@ namespace Files.App.ViewModels.UserControls
 			{
 				new ContextMenuFlyoutItemViewModel()
 				{
-					Text = "SideBarCreateNewLibrary/Text".GetLocalizedResource(),
+					Text = Strings.SideBarCreateNewLibrary_Text.GetLocalizedResource(),
 					Glyph = "\uE710",
 					Command = CreateLibraryCommand,
 					ShowItem = options.IsLibrariesHeader
 				},
 				new ContextMenuFlyoutItemViewModel()
 				{
-					Text = "SideBarRestoreLibraries/Text".GetLocalizedResource(),
+					Text = Strings.SideBarRestoreLibraries_Text.GetLocalizedResource(),
 					Glyph = "\uE10E",
 					Command = RestoreLibrariesCommand,
 					ShowItem = options.IsLibrariesHeader
@@ -970,15 +959,24 @@ namespace Files.App.ViewModels.UserControls
 				{
 					IsVisible = options.ShowEmptyRecycleBin,
 				}.Build(),
-				new ContextMenuFlyoutItemViewModelBuilder(Commands.OpenInNewTabFromSidebarAction).Build(),
-				new ContextMenuFlyoutItemViewModelBuilder(Commands.OpenInNewWindowFromSidebarAction).Build(),
-				new ContextMenuFlyoutItemViewModelBuilder(Commands.OpenInNewPaneFromSidebarAction).Build(),
+				new ContextMenuFlyoutItemViewModelBuilder(Commands.OpenInNewTabFromSidebarAction)
+				{
+					IsVisible = UserSettingsService.GeneralSettingsService.ShowOpenInNewTab && Commands.OpenInNewTabFromSidebarAction.IsExecutable
+				}.Build(),
+				new ContextMenuFlyoutItemViewModelBuilder(Commands.OpenInNewWindowFromSidebarAction)
+				{
+					IsVisible = UserSettingsService.GeneralSettingsService.ShowOpenInNewWindow && Commands.OpenInNewWindowFromSidebarAction.IsExecutable
+				}.Build(),
+				new ContextMenuFlyoutItemViewModelBuilder(Commands.OpenInNewPaneFromSidebarAction)
+				{
+					IsVisible = UserSettingsService.GeneralSettingsService.ShowOpenInNewPane && Commands.OpenInNewPaneFromSidebarAction.IsExecutable
+				}.Build(),
 				new ContextMenuFlyoutItemViewModel()
 				{
 					Text = "PinFolderToSidebar".GetLocalizedResource(),
-					OpacityIcon = new OpacityIconModel()
+					ThemedIconModel = new ThemedIconModel()
 					{
-						OpacityIconStyle = "Icons.Pin.16x16",
+						ThemedIconStyle = "App.ThemedIcons.FavoritePin",
 					},
 					Command = PinItemCommand,
 					ShowItem = isDriveItem && !isDriveItemPinned
@@ -986,9 +984,9 @@ namespace Files.App.ViewModels.UserControls
 				new ContextMenuFlyoutItemViewModel()
 				{
 					Text = "UnpinFolderFromSidebar".GetLocalizedResource(),
-					OpacityIcon = new OpacityIconModel()
+					ThemedIconModel = new ThemedIconModel()
 					{
-						OpacityIconStyle = "Icons.Unpin.16x16",
+						ThemedIconStyle = "App.ThemedIcons.FavoritePinRemove",
 					},
 					Command = UnpinItemCommand,
 					ShowItem = options.ShowUnpinItem || isDriveItemPinned
@@ -1015,22 +1013,25 @@ namespace Files.App.ViewModels.UserControls
 				},
 				new ContextMenuFlyoutItemViewModel()
 				{
-					Text = "FormatDriveText".GetLocalizedResource(),
-					Command = FormatDriveCommand,
-					CommandParameter = item,
-					ShowItem = options.ShowFormatDrive
-				},
-				new ContextMenuFlyoutItemViewModel()
-				{
 					Text = "Properties".GetLocalizedResource(),
-					OpacityIcon = new OpacityIconModel()
+					ThemedIconModel = new ThemedIconModel()
 					{
-						OpacityIconStyle = "ColorIconProperties",
+						ThemedIconStyle = "App.ThemedIcons.Properties",
 					},
 					Command = OpenPropertiesCommand,
 					CommandParameter = menu,
 					ShowItem = options.ShowProperties
 				},
+				new ContextMenuFlyoutItemViewModel()
+				{
+					ItemType = ContextMenuFlyoutItemType.Separator,
+					ShowItem = Commands.OpenTerminalFromSidebar.IsExecutable ||
+						Commands.OpenStorageSenseFromSidebar.IsExecutable ||
+						Commands.FormatDriveFromSidebar.IsExecutable
+				},
+				new ContextMenuFlyoutItemViewModelBuilder(Commands.OpenTerminalFromSidebar).Build(),
+				new ContextMenuFlyoutItemViewModelBuilder(Commands.OpenStorageSenseFromSidebar).Build(),
+				new ContextMenuFlyoutItemViewModelBuilder(Commands.FormatDriveFromSidebar).Build(),
 				new ContextMenuFlyoutItemViewModel()
 				{
 					ItemType = ContextMenuFlyoutItemType.Separator,
@@ -1046,6 +1047,14 @@ namespace Files.App.ViewModels.UserControls
 					Tag = "ItemOverflow",
 					IsEnabled = false,
 					IsHidden = !options.ShowShellItems,
+				},
+				new ContextMenuFlyoutItemViewModel()
+				{
+					Text = "ManageTags".GetLocalizedResource(),
+					Glyph = "\uE8EC",
+					Command = Commands.OpenSettings,
+					CommandParameter = new SettingsNavigationParams() { PageKind = SettingsPageKind.TagsPage },
+					ShowItem = options.IsTagsHeader
 				}
 			}.Where(x => x.ShowItem).ToList();
 		}
@@ -1207,7 +1216,7 @@ namespace Files.App.ViewModels.UserControls
 
 			var storageItems = await Utils.Storage.FilesystemHelpers.GetDraggedStorageItems(args.DroppedItem);
 
-			if (!storageItems.Any())
+			if (!storageItems.Any(x => !string.IsNullOrEmpty(x.Path)))
 			{
 				args.RawEvent.AcceptedOperation = DataPackageOperation.None;
 			}
@@ -1218,7 +1227,6 @@ namespace Files.App.ViewModels.UserControls
 				args.RawEvent.AcceptedOperation = DataPackageOperation.Link;
 			}
 		}
-
 
 		public async Task HandleItemDroppedAsync(ItemDroppedEventArgs args)
 		{
@@ -1258,14 +1266,25 @@ namespace Files.App.ViewModels.UserControls
 		private async Task HandleTagItemDroppedAsync(FileTagItem fileTagItem, ItemDroppedEventArgs args)
 		{
 			var storageItems = await Utils.Storage.FilesystemHelpers.GetDraggedStorageItems(args.DroppedItem);
+			var dbInstance = FileTagsHelper.GetDbInstance();
+			var pathToTags = new Dictionary<string, string[]>();
 			foreach (var item in storageItems.Where(x => !string.IsNullOrEmpty(x.Path)))
 			{
-				var listedItem = new ListedItem(null)
+				var filesTags = FileTagsHelper.ReadFileTag(item.Path);
+				if (!filesTags.Contains(fileTagItem.FileTag.Uid))
 				{
-					ItemPath = item.Path,
-					FileFRN = await FileTagsHelper.GetFileFRN(item.Item),
-					FileTags = [fileTagItem.FileTag.Uid]
-				};
+					filesTags = [.. filesTags, fileTagItem.FileTag.Uid];
+					var fileFRN = await FileTagsHelper.GetFileFRN(item.Item);
+					dbInstance.SetTags(item.Path, fileFRN, filesTags);
+					FileTagsHelper.WriteFileTag(item.Path, filesTags);
+					pathToTags[item.Path] = filesTags;
+				}
+			}
+
+			if (paneHolder.ActivePane is not null)
+			{
+				await paneHolder.ActivePane.ShellViewModel.UpdateItemsTags(pathToTags);
+				await paneHolder.ActivePane.ShellViewModel.RefreshTagGroups();
 			}
 		}
 

@@ -1,5 +1,5 @@
-// Copyright (c) 2024 Files Community
-// Licensed under the MIT License. See the LICENSE.
+// Copyright (c) Files Community
+// Licensed under the MIT License.
 
 using Windows.Foundation.Metadata;
 using Windows.System;
@@ -10,7 +10,7 @@ namespace Files.App.Utils.Storage
 	{
 		public static async Task OpenStorageSenseAsync(string path)
 		{
-			if (!path.StartsWith("C:", StringComparison.OrdinalIgnoreCase)
+			if (!path.StartsWith(Constants.UserEnvironmentPaths.SystemDrivePath, StringComparison.OrdinalIgnoreCase)
 				&& ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 8))
 			{
 				LaunchHelper.LaunchSettings("page=SettingsPageStorageSenseStorageOverview&target=SystemSettings_StorageSense_VolumeListLink");

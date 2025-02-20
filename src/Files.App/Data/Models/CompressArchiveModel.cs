@@ -1,5 +1,5 @@
-﻿// Copyright (c) 2024 Files Community
-// Licensed under the MIT License. See the LICENSE.
+﻿// Copyright (c) Files Community
+// Licensed under the MIT License.
 
 using Files.App.Utils.Storage.Operations;
 using Microsoft.Extensions.Logging;
@@ -108,11 +108,15 @@ namespace Files.App.Data.Models
 
 		/// <inheritdoc/>
 		public CancellationToken CancellationToken { get; set; }
+		
+		/// <inheritdoc/>
+		public int CPUThreads { get; set; }
 
 		public CompressArchiveModel(
 			string[] source,
 			string directory,
 			string fileName,
+			int cpuThreads,
 			string? password = null,
 			ArchiveFormats fileFormat = ArchiveFormats.Zip,
 			ArchiveCompressionLevels compressionLevel = ArchiveCompressionLevels.Normal,
@@ -128,6 +132,7 @@ namespace Files.App.Data.Models
 			FileFormat = fileFormat;
 			CompressionLevel = compressionLevel;
 			SplittingSize = splittingSize;
+			CPUThreads = cpuThreads;
 		}
 
 		/// <inheritdoc/>
@@ -151,6 +156,8 @@ namespace Files.App.Data.Models
 				EncryptHeaders = true,
 				PreserveDirectoryRoot = sources.Length > 1,
 			};
+
+			compressor.CustomParameters.Add("mt", CPUThreads.ToString());
 
 			compressor.Compressing += Compressor_Compressing;
 			compressor.FileCompressionStarted += Compressor_FileCompressionStarted;

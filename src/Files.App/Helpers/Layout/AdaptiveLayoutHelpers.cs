@@ -1,5 +1,5 @@
-// Copyright (c) 2024 Files Community
-// Licensed under the MIT License. See the LICENSE.
+// Copyright (c) Files Community
+// Licensed under the MIT License.
 
 using Files.App.ViewModels.Previews;
 using Files.Shared.Helpers;
@@ -43,7 +43,7 @@ namespace Files.App.Helpers
 
 		private static Layouts GetPathLayout()
 		{
-			var desktopIni = ContentPageContext.ShellPage?.ShellViewModel.DesktopIni;
+			var desktopIni = ContentPageContext.ShellPage?.ShellViewModel?.DesktopIni;
 			if (desktopIni is null)
 				return Layouts.None;
 

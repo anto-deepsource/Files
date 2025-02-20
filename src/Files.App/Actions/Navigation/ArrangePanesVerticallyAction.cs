@@ -1,9 +1,9 @@
-﻿// Copyright (c) 2024 Files Community
-// Licensed under the MIT License. See the LICENSE.
+﻿// Copyright (c) Files Community
+// Licensed under the MIT License.
 
 namespace Files.App.Actions
 {
-	internal sealed class ArrangePanesVerticallyAction : ObservableObject, IToggleAction
+	internal sealed partial class ArrangePanesVerticallyAction : ObservableObject, IToggleAction
 	{
 		private readonly IContentPageContext ContentPageContext = Ioc.Default.GetRequiredService<IContentPageContext>();
 		private readonly IMultiPanesContext MultiPanesContext = Ioc.Default.GetRequiredService<IMultiPanesContext>();
@@ -15,7 +15,7 @@ namespace Files.App.Actions
 			=> "ArrangePanesVerticallyDescription".GetLocalizedResource();
 
 		public RichGlyph Glyph
-			=> new(opacityStyle: "ColorIconAddVerticalPane");
+			=> new(themedIconStyle: "App.ThemedIcons.Panes.Horizontal");
 
 		public bool IsOn
 			=> MultiPanesContext.ShellPaneArrangement is ShellPaneArrangement.Vertical;

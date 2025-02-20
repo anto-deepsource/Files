@@ -1,5 +1,5 @@
-// Copyright (c) 2024 Files Community
-// Licensed under the MIT License. See the LICENSE.
+// Copyright (c) Files Community
+// Licensed under the MIT License.
 
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Windows;
@@ -70,13 +70,13 @@ namespace Files.InteractionTests
 				if (_session is null)
 				{
 					// WinAppDriver is probably not running, so lets start it!
-					if (File.Exists(@"C:\Program Files (x86)\Windows Application Driver\WinAppDriver.exe"))
+					if (File.Exists($@"{Environment.GetEnvironmentVariable("ProgramFiles(x86)")}\Windows Application Driver\WinAppDriver.exe"))
 					{
-						Process.Start(@"C:\Program Files (x86)\Windows Application Driver\WinAppDriver.exe");
+						Process.Start($@"{Environment.GetEnvironmentVariable("ProgramFiles(x86)")}\Windows Application Driver\WinAppDriver.exe");
 					}
-					else if (File.Exists(@"C:\Program Files\Windows Application Driver\WinAppDriver.exe"))
+					else if (File.Exists($@"{Environment.GetEnvironmentVariable("ProgramFiles")}\Windows Application Driver\WinAppDriver.exe"))
 					{
-						Process.Start(@"C:\Program Files\Windows Application Driver\WinAppDriver.exe");
+						Process.Start($@"{Environment.GetEnvironmentVariable("ProgramFiles")}\Windows Application Driver\WinAppDriver.exe");
 					}
 					else
 					{

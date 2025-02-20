@@ -1,13 +1,14 @@
-// Copyright (c) 2024 Files Community
-// Licensed under the MIT License. See the LICENSE.
+// Copyright (c) Files Community
+// Licensed under the MIT License.
 
-using CommunityToolkit.WinUI.UI.Controls;
+using CommunityToolkit.WinUI.Controls;
 using Microsoft.UI.Input;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Navigation;
 using System.Runtime.CompilerServices;
+using GridSplitter = Files.App.Controls.GridSplitter;
 
 namespace Files.App.Views
 {
@@ -246,14 +247,24 @@ namespace Files.App.Views
 
 			// Set default values
 			ActivePane = GetPane(0);
-			_WindowIsCompact = MainWindow.Instance.Bounds.Width <= Constants.UI.MultiplePaneWidthThreshold;
+
+			try
+			{
+				_WindowIsCompact = MainWindow.Instance.Bounds.Width <= Constants.UI.MultiplePaneWidthThreshold;
+				MainWindow.Instance.SizeChanged += MainWindow_SizeChanged;
+			}
+			catch (Exception)
+			{
+				// Handle exception in case WinUI Windows is closed
+				// (see https://github.com/files-community/Files/issues/15599)
+
+				_WindowIsCompact = false;
+			}
 
 			// Open the secondary pane
 			if (IsMultiPaneAvailable &&
 				GeneralSettingsService.AlwaysOpenDualPaneInNewTab)
 				AddPane();
-
-			MainWindow.Instance.SizeChanged += MainWindow_SizeChanged;
 		}
 
 		// Public methods
@@ -346,6 +357,12 @@ namespace Files.App.Views
 				GetPane(0)?.Focus(FocusState.Programmatic);
 		}
 
+		/// <inheritdoc/>
+		public IEnumerable<ModernShellPage> GetPanes()
+		{
+			return RootGrid.Children.Where(x => RootGrid.Children.IndexOf(x) % 2 == 0).Cast<ModernShellPage>();
+		}
+
 		// Private methods
 
 		private ModernShellPage? GetPane(int index = -1)
@@ -360,11 +377,6 @@ namespace Files.App.Views
 		private int GetPaneCount()
 		{
 			return (RootGrid.Children.Count + 1) / 2;
-		}
-
-		private IEnumerable<ModernShellPage> GetPanes()
-		{
-			return RootGrid.Children.Where(x => RootGrid.Children.IndexOf(x) % 2 == 0).Cast<ModernShellPage>();
 		}
 
 		private IEnumerable<GridSplitter> GetSizers()
@@ -636,7 +648,8 @@ namespace Files.App.Views
 
 		private void Pane_PointerPressed(object sender, PointerRoutedEventArgs e)
 		{
-			(sender as UIElement)?.Focus(FocusState.Pointer);
+			if (sender != ActivePane && sender is IShellPage shellPage && shellPage.SlimContentPage is not ColumnsLayoutPage)
+				(sender as UIElement)?.Focus(FocusState.Pointer);
 		}
 
 		private void Pane_GotFocus(object sender, RoutedEventArgs e)

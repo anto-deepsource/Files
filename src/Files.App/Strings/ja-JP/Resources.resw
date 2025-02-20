@@ -126,6 +126,9 @@
   <data name="CopyPathWithQuotes" xml:space="preserve">
     <value>引用符付きでパスのコピー</value>
   </data>
+  <data name="CopyItemPathWithQuotes" xml:space="preserve">
+    <value>選択した項目のパスを引用符付きでコピー</value>
+  </data>
   <data name="Browse" xml:space="preserve">
     <value>参照</value>
   </data>
@@ -249,6 +252,9 @@
   <data name="Paste" xml:space="preserve">
     <value>貼り付け</value>
   </data>
+  <data name="PasteShortcut" xml:space="preserve">
+    <value>ショートカットを貼り付け</value>
+  </data>
   <data name="BaseLayoutContextFlyoutNew.Label" xml:space="preserve">
     <value>新規作成</value>
   </data>
@@ -291,8 +297,8 @@
   <data name="EnterAnItemName" xml:space="preserve">
     <value>名前を入力</value>
   </data>
-  <data name="RenameDialog.PrimaryButtonText" xml:space="preserve">
-    <value>名前を設定</value>
+  <data name="CreateNewItemTitle" xml:space="preserve">
+    <value>新しい{0}を作成</value>
   </data>
   <data name="LightTheme" xml:space="preserve">
     <value>ライト</value>
@@ -633,7 +639,7 @@
     <value>キャンセル</value>
   </data>
   <data name="AddDialog.Title" xml:space="preserve">
-    <value>新しいファイルの作成</value>
+    <value>新しい項目を作成</value>
   </data>
   <data name="AddDialogDescription.Text" xml:space="preserve">
     <value>以下から新しい項目の種類を選択してください</value>
@@ -1052,9 +1058,6 @@
   <data name="NavToolbarDetails.ToolTipService.ToolTip" xml:space="preserve">
     <value>詳細 (Ctrl+Shift+1)</value>
   </data>
-  <data name="NavToolbarTiles.ToolTipService.ToolTip" xml:space="preserve">
-    <value>タイル (Ctrl+Shift+2)</value>
-  </data>
   <data name="DateDeleted" xml:space="preserve">
     <value>削除した日時</value>
   </data>
@@ -1237,6 +1240,12 @@
   </data>
   <data name="OpenStorageSense" xml:space="preserve">
     <value>ストレージ センサーを開く</value>
+  </data>
+  <data name="OpenStorageSenseDescription" xml:space="preserve">
+    <value>Windows 設定のストレージ センサー ページを開く</value>
+  </data>
+  <data name="Cleanup" xml:space="preserve">
+    <value>クリーンアップ</value>
   </data>
   <data name="Copy" xml:space="preserve">
     <value>コピー</value>
@@ -1461,7 +1470,7 @@
     <value>{0} へ展開</value>
   </data>
   <data name="SideBarCreateNewLibrary.Text" xml:space="preserve">
-    <value>新しいライブラリの作成</value>
+    <value>新しいライブラリを作成</value>
   </data>
   <data name="SideBarRestoreLibraries.Text" xml:space="preserve">
     <value>既定のライブラリを復元</value>
@@ -1646,15 +1655,6 @@
   <data name="Home" xml:space="preserve">
     <value>ホーム</value>
   </data>
-  <data name="BaseLayoutContextFlyoutDetails.KeyboardAcceleratorTextOverride" xml:space="preserve">
-    <value>Ctrl+Shift+1</value>
-  </data>
-  <data name="BaseLayoutContextFlyoutTiles.KeyboardAcceleratorTextOverride" xml:space="preserve">
-    <value>Ctrl+Shift+2</value>
-  </data>
-  <data name="BaseLayoutContextFlyoutColumn.KeyboardAcceleratorTextOverride" xml:space="preserve">
-    <value>Ctrl+Shift+6</value>
-  </data>
   <data name="ArchiveExtractionCompletedSuccessfullyText" xml:space="preserve">
     <value>アーカイブの展開が正常に完了しました。</value>
   </data>
@@ -1712,8 +1712,8 @@
   <data name="Columns" xml:space="preserve">
     <value>カラム</value>
   </data>
-  <data name="Tiles" xml:space="preserve">
-    <value>タイル</value>
+  <data name="Cards" xml:space="preserve">
+    <value>カード</value>
   </data>
   <data name="OpenFoldersInNewTab" xml:space="preserve">
     <value>新しいタブでフォルダーを開く</value>
@@ -1826,6 +1826,18 @@
   <data name="CompatibilityRegisterThisProgramForRestart" xml:space="preserve">
     <value>このプログラムを再起動するために登録する</value>
   </data>
+  <data name="StartWindow" xml:space="preserve">
+    <value>実行時の大きさ</value>
+  </data>
+  <data name="NormalWindow" xml:space="preserve">
+    <value>通常のウィンドウ</value>
+  </data>
+  <data name="Minimized" xml:space="preserve">
+    <value>最小化</value>
+  </data>
+  <data name="Maximized" xml:space="preserve">
+    <value>最大化</value>
+  </data>
   <data name="RunAsAdministrator" xml:space="preserve">
     <value>管理者として実行</value>
   </data>
@@ -1852,6 +1864,9 @@
   </data>
   <data name="SettingsSetAsDefaultFileManagerDescription" xml:space="preserve">
     <value>この設定はシステムのレジストリを変更し、デバイスに思わぬ結果をもたらす可能性があります。問題が発生しても開発者は責任を負いません。</value>
+  </data>
+  <data name="ShowFlattenOptionsDescription" xml:space="preserve">
+    <value>フラット化の操作は恒久的で推奨されません。問題が発生しても開発者は責任を負いません。</value>
   </data>
   <data name="FolderWidgetCreateNewLibraryDialogTitleText" xml:space="preserve">
     <value>ライブラリを作成</value>
@@ -1930,6 +1945,9 @@
   </data>
   <data name="CloseOtherTabs" xml:space="preserve">
     <value>他のタブを閉じる</value>
+  </data>
+  <data name="CloseAllTabs" xml:space="preserve">
+    <value>すべてのタブを閉じる</value>
   </data>
   <data name="Music" xml:space="preserve">
     <value>ミュージック</value>
@@ -2026,6 +2044,21 @@
   </data>
   <data name="Compress" xml:space="preserve">
     <value>圧縮</value>
+  </data>
+  <data name="FlattenFolderDescription" xml:space="preserve">
+    <value>すべての項目をサブフォルダーから選択した場所に移動する</value>
+  </data>
+  <data name="FlattenFolder" xml:space="preserve">
+    <value>フォルダーをフラット化</value>
+  </data>
+  <data name="Flatten" xml:space="preserve">
+    <value>フラット化</value>
+  </data>
+  <data name="FlattenFolderDialogContent" xml:space="preserve">
+    <value>フォルダーをフラット化すると、そのサブフォルダーから選択した場所にすべての項目を移動します。この操作は恒久的で、元に戻すことはできません。この実験的機能を使用する場合は、リスクを認識し、Files 開発チームはあらゆるデータ損失に対する責任を負わないことに同意してください。</value>
+  </data>
+  <data name="ShowFlattenOptions" xml:space="preserve">
+    <value>フラット化のオプションを表示</value>
   </data>
   <data name="SelectFilesAndFoldersOnHover" xml:space="preserve">
     <value>カーソルを合わせたファイルとフォルダーを選択する</value>
@@ -2162,6 +2195,9 @@
   <data name="WhatsNew" xml:space="preserve">
     <value>更新情報</value>
   </data>
+  <data name="WhatsNewDescription" xml:space="preserve">
+    <value>更新履歴を開く</value>
+  </data>
   <data name="CannotCreateShortcutDialogTitle" xml:space="preserve">
     <value>この場所にショートカットを作成するには管理者権限が必要です</value>
   </data>
@@ -2247,7 +2283,7 @@
     <value>隠しファイルを表示</value>
   </data>
   <data name="FormatDriveText" xml:space="preserve">
-    <value>フォーマット…</value>
+    <value>フォーマット</value>
   </data>
   <data name="Help" xml:space="preserve">
     <value>ヘルプ</value>
@@ -2357,6 +2393,9 @@
   <data name="ToggleShowHiddenItemsDescription" xml:space="preserve">
     <value>隠しファイルを表示するかどうかを切り替える</value>
   </data>
+  <data name="ToggleDotFilesSettingDescription" xml:space="preserve">
+    <value>ドット ファイルを表示するかどうかを切り替える</value>
+  </data>
   <data name="ToggleShowFileExtensionsDescription" xml:space="preserve">
     <value>ファイル名拡張子を表示するかどうかを切り替える</value>
   </data>
@@ -2370,16 +2409,25 @@
     <value>項目をクリップボードにコピーする</value>
   </data>
   <data name="CopyPathDescription" xml:space="preserve">
+    <value>現在のディレクトリのパスをクリップボードにコピーする</value>
+  </data>
+  <data name="CopyItemPathDescription" xml:space="preserve">
     <value>選択した項目のパスをクリップボードにコピーする</value>
   </data>
-  <data name="CopyPathWithQuotesDescription" xml:space="preserve">
+  <data name="CopyItemPathWithQuotesDescription" xml:space="preserve">
     <value>選択した項目のパスを引用符付きでクリップボードにコピーする</value>
+  </data>
+  <data name="CopyPathWithQuotesDescription" xml:space="preserve">
+    <value>現在のディレクトリのパスを引用符付きでクリップボードにコピーする</value>
   </data>
   <data name="CutItemDescription" xml:space="preserve">
     <value>項目をクリップボードに切り取る</value>
   </data>
   <data name="PasteItemDescription" xml:space="preserve">
     <value>項目をクリップボードから現在のフォルダーに貼り付ける</value>
+  </data>
+  <data name="PasteShortcutDescription" xml:space="preserve">
+    <value>項目をクリップボードから現在のフォルダーにショートカットとして貼り付ける</value>
   </data>
   <data name="PasteItemToSelectionDescription" xml:space="preserve">
     <value>項目をクリップボードから選択したフォルダーに貼り付ける</value>
@@ -2525,8 +2573,8 @@
   <data name="LayoutDetailsDescription" xml:space="preserve">
     <value>詳細ビューに切り替える</value>
   </data>
-  <data name="LayoutTilesDescription" xml:space="preserve">
-    <value>タイル ビューに切り替える</value>
+  <data name="LayoutCardsDescription" xml:space="preserve">
+    <value>カード ビューに切り替える</value>
   </data>
   <data name="LayoutListDescription" xml:space="preserve">
     <value>一覧ビューに切り替える</value>
@@ -2660,6 +2708,9 @@
   <data name="CloseOtherTabsSelectedDescription" xml:space="preserve">
     <value>選択したタブ以外のタブを閉じる</value>
   </data>
+  <data name="CloseAllTabsDescription" xml:space="preserve">
+    <value>現在のタブを含むすべてのタブを閉じる</value>
+  </data>
   <data name="ReopenClosedTabDescription" xml:space="preserve">
     <value>最後に閉じたタブを再度開く</value>
   </data>
@@ -2676,10 +2727,10 @@
     <value>現在のペインを閉じる</value>
   </data>
   <data name="FocusOtherPane" xml:space="preserve">
-    <value>Focus other pane</value>
+    <value>別のペインに移動</value>
   </data>
   <data name="FocusOtherPaneDescription" xml:space="preserve">
-    <value>Switch focus to the non active pane</value>
+    <value>現在のペインでないペインに移動する</value>
   </data>
   <data name="ToggleSidebar" xml:space="preserve">
     <value>サイドバーの表示を切り替える</value>
@@ -3060,8 +3111,14 @@
   <data name="OpenProperties" xml:space="preserve">
     <value>プロパティを開く</value>
   </data>
+  <data name="OpenClassicProperties" xml:space="preserve">
+    <value>エクスプローラーのプロパティを開く</value>
+  </data>
   <data name="OpenPropertiesDescription" xml:space="preserve">
     <value>プロパティ ウィンドウを開く</value>
+  </data>
+  <data name="OpenClassicPropertiesDescription" xml:space="preserve">
+    <value>エクスプローラーのプロパティ ウィンドウを開く</value>
   </data>
   <data name="Locals" xml:space="preserve">
     <value>ローカル</value>
@@ -3125,7 +3182,7 @@
     <value>マイカ Alt</value>
   </data>
   <data name="BackdropMaterial" xml:space="preserve">
-    <value>背景の素材</value>
+    <value>背景</value>
   </data>
   <data name="Solid" xml:space="preserve">
     <value>ソリッド</value>
@@ -3657,9 +3714,6 @@
   <data name="QuestionsAndDiscussions" xml:space="preserve">
     <value>質問と議論</value>
   </data>
-  <data name="TilesViewSizeInfo" xml:space="preserve">
-    <value>タイル ビューではサイズの変更はまだ利用できません。</value>
-  </data>
   <data name="Compact" xml:space="preserve">
     <value>コンパクト</value>
     <comment>Used to describe layout sizes</comment>
@@ -3855,51 +3909,134 @@
   </data>
   <data name="ShowToolbar" xml:space="preserve">
     <value>ツールバーを表示する</value>
-    <comment>Setting that controls if the Toolbar is shown in the main view</comment>
+    <comment>Setting that controls if the toolbar is shown in the main view</comment>
   </data>
   <data name="TabActions" xml:space="preserve">
     <value>タブ操作メニュー</value>
   </data>
   <data name="AddVerticalPane" xml:space="preserve">
-    <value>Add vertical pane</value>
+    <value>縦にペインを追加</value>
   </data>
   <data name="AddVerticalPaneDescription" xml:space="preserve">
-    <value>Add a vertical pane</value>
+    <value>縦にペインを追加する</value>
   </data>
   <data name="AddHorizontalPane" xml:space="preserve">
-    <value>Add horizontal pane</value>
+    <value>横にペインを追加</value>
   </data>
   <data name="AddHorizontalPaneDescription" xml:space="preserve">
-    <value>Add a horizontal pane</value>
+    <value>横にペインを追加する</value>
   </data>
   <data name="ArrangePanesVertically" xml:space="preserve">
-    <value>Arrange vertically</value>
+    <value>縦に配置</value>
   </data>
   <data name="ArrangePanesVerticallyDescription" xml:space="preserve">
-    <value>Arrange panes vertically</value>
+    <value>ペインを縦に配置する</value>
   </data>
   <data name="ArrangePanesHorizontally" xml:space="preserve">
-    <value>Arrange horizontally</value>
+    <value>横に配置</value>
   </data>
   <data name="ArrangePanesHorizontallyDescription" xml:space="preserve">
-    <value>Arrange panes horizontally</value>
+    <value>ペインを横に配置する</value>
   </data>
   <data name="AddPane" xml:space="preserve">
-    <value>Add pane</value>
+    <value>ペインを追加</value>
   </data>
   <data name="ShowTabActions" xml:space="preserve">
-    <value>Show tab actions button in the title bar</value>
+    <value>タイトル バーにタブ操作ボタンを表示する</value>
   </data>
   <data name="ArrangePanes" xml:space="preserve">
-    <value>Arrange panes</value>
+    <value>ペインの配置</value>
   </data>
   <data name="DefaultPaneArrangement" xml:space="preserve">
-    <value>Default pane arrangement</value>
+    <value>デフォルトのペイン配置</value>
   </data>
   <data name="Horizontal" xml:space="preserve">
-    <value>Horizontal</value>
+    <value>横</value>
   </data>
   <data name="Vertical" xml:space="preserve">
-    <value>Vertical</value>
+    <value>縦</value>
+  </data>
+  <data name="ShowSystemTrayIcon" xml:space="preserve">
+    <value>システム トレイに Files のアイコンを表示する</value>
+  </data>
+  <data name="CPUThreads" xml:space="preserve">
+    <value>CPU スレッド数</value>
+  </data>
+  <data name="NavigateHomeDescription" xml:space="preserve">
+    <value>ホーム ページに移動する</value>
+  </data>
+  <data name="ShowHomeButton" xml:space="preserve">
+    <value>アドレス バーにホーム ボタンを表示する</value>
+  </data>
+  <data name="Toolbars" xml:space="preserve">
+    <value>ツールバー</value>
+  </data>
+  <data name="UserID" xml:space="preserve">
+    <value>ユーザー ID</value>
+  </data>
+  <data name="BulkRename" xml:space="preserve">
+    <value>名前を一括して変更</value>
+  </data>
+  <data name="CompressContents" xml:space="preserve">
+    <value>内容を圧縮</value>
+  </data>
+  <data name="ShowCreateAlternateDataStream" xml:space="preserve">
+    <value>[代替データ ストリームの作成] オプションを表示する</value>
+  </data>
+  <data name="CreateAlternateDataStream" xml:space="preserve">
+    <value>代替データ ストリームの作成</value>
+  </data>
+  <data name="CreateAlternateDataStreamDescription" xml:space="preserve">
+    <value>選択した項目の代替データ ストリームを作成する</value>
+  </data>
+  <data name="EnterDataStreamName" xml:space="preserve">
+    <value>データ ストリーム名を入力</value>
+  </data>
+  <data name="ErrorCreatingDataStreamTitle" xml:space="preserve">
+    <value>代替データ ストリームの作成中にエラーが発生しました</value>
+  </data>
+  <data name="ErrorCreatingDataStreamDescription" xml:space="preserve">
+    <value>代替データ ストリームはNTFSでフォーマットされたドライブでのみ動作することに注意してください。</value>
+  </data>
+  <data name="DataStreamsAreHiddenTitle" xml:space="preserve">
+    <value>代替データ ストリームは現在表示されていません</value>
+  </data>
+  <data name="DataStreamsAreHiddenDescription" xml:space="preserve">
+    <value>代替データ ストリームを表示しますか? ファイルとフォルダーの設定ページからいつでもこの設定を変更できます。</value>
+  </data>
+  <data name="ManageTags" xml:space="preserve">
+    <value>タグの管理</value>
+  </data>
+  <data name="Available" xml:space="preserve">
+    <value>利用可能</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>合計</value>
+  </data>
+  <data name="AlwaysSwitchToNewlyOpenedTab" xml:space="preserve">
+    <value>常に新しく作成したタブに表示を切り替える</value>
+  </data>
+  <data name="ToggleShelfPane" xml:space="preserve">
+    <value>シェルフ ウィンドウの表示を切り替える</value>
+  </data>
+  <data name="ToggleShelfPaneDescription" xml:space="preserve">
+    <value>シェルフ ウィンドウの表示を切り替える</value>
+  </data>
+  <data name="ShowShelfPaneButtonInAddressBar" xml:space="preserve">
+    <value>アドレス バーにシェルフ ウィンドウの切り替えボタンを表示する</value>
+  </data>
+  <data name="Shelf" xml:space="preserve">
+    <value>シェルフ</value>
+    <comment>'Shelf' refers to the Shelf Pane feature, where users can conveniently drag and drop files for quick access and perform bulk actions with ease.</comment>
+  </data>
+  <data name="ClearItems" xml:space="preserve">
+    <value>項目をクリア</value>
+  </data>
+  <data name="RemoveFromShelf" xml:space="preserve">
+    <value>シェルフから削除</value>
+  </data>
+  <data name="AddToShelf" xml:space="preserve">
+    <value>シェルフに追加</value>
+    <comment>Tooltip that displays when dragging items to the Shelf Pane</comment>
   </data>
 </root>

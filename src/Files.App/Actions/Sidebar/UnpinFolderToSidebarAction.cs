@@ -1,9 +1,9 @@
-// Copyright (c) 2024 Files Community
-// Licensed under the MIT License. See the LICENSE.
+// Copyright (c) Files Community
+// Licensed under the MIT License.
 
 namespace Files.App.Actions
 {
-	internal sealed class UnpinFolderFromSidebarAction : ObservableObject, IAction
+	internal sealed partial class UnpinFolderFromSidebarAction : ObservableObject, IAction
 	{
 		private readonly IContentPageContext context;
 		private readonly IQuickAccessService service;
@@ -15,7 +15,7 @@ namespace Files.App.Actions
 			=> "UnpinFolderFromSidebarDescription".GetLocalizedResource();
 
 		public RichGlyph Glyph
-			=> new(opacityStyle: "Icons.Unpin.16x16");
+			=> new(themedIconStyle: "App.ThemedIcons.FavoritePinRemove");
 
 		public bool IsExecutable
 			=> GetIsExecutable();

@@ -1,8 +1,5 @@
-﻿// Copyright (c) 2024 Files Community
-// Licensed under the MIT License. See the LICENSE.
-
-using CommunityToolkit.Mvvm.DependencyInjection;
-using Files.Core.Storage;
+﻿// Copyright (c) Files Community
+// Licensed under the MIT License.
 
 namespace Files.App.Actions
 {
@@ -21,7 +18,7 @@ namespace Files.App.Actions
 			=> "PinToStartDescription".GetLocalizedResource();
 
 		public RichGlyph Glyph
-			=> new(opacityStyle: "Icons.Pin.16x16");
+			=> new(themedIconStyle: "App.ThemedIcons.FavoritePin");
 
 		public bool IsExecutable =>
 			context.ShellPage is not null;
@@ -37,20 +34,26 @@ namespace Files.App.Actions
 			{
 				foreach (ListedItem listedItem in context.ShellPage.SlimContentPage.SelectedItems)
 				{
-					IStorable storable = listedItem.IsFolder switch
+					await SafetyExtensions.IgnoreExceptions(async () =>
 					{
-						true => await StorageService.GetFolderAsync(listedItem.ItemPath),
-						_ => await StorageService.GetFileAsync((listedItem as ShortcutItem)?.TargetPath ?? listedItem.ItemPath)
-					};
-					await StartMenuService.PinAsync(storable, listedItem.Name);
+						IStorable storable = listedItem.IsFolder switch
+						{
+							true => await StorageService.GetFolderAsync(listedItem.ItemPath),
+							_ => await StorageService.GetFileAsync((listedItem as ShortcutItem)?.TargetPath ?? listedItem.ItemPath)
+						};
+						await StartMenuService.PinAsync(storable, listedItem.Name);
+					});
 				}
 			}
 			else if (context.ShellPage?.ShellViewModel?.CurrentFolder is not null)
 			{
-				var currentFolder = context.ShellPage.ShellViewModel.CurrentFolder;
-				var folder = await StorageService.GetFolderAsync(currentFolder.ItemPath);
+				await SafetyExtensions.IgnoreExceptions(async () =>
+				{
+					var currentFolder = context.ShellPage.ShellViewModel.CurrentFolder;
+					var folder = await StorageService.GetFolderAsync(currentFolder.ItemPath);
 
-				await StartMenuService.PinAsync(folder, currentFolder.Name);
+					await StartMenuService.PinAsync(folder, currentFolder.Name);
+				});
 			}
 		}
 	}

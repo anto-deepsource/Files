@@ -1,12 +1,12 @@
-﻿// Copyright (c) 2024 Files Community
-// Licensed under the MIT License. See the LICENSE.
+﻿// Copyright (c) Files Community
+// Licensed under the MIT License.
 
 using System.Text;
 using Windows.Storage;
 
 namespace Files.App.Actions
 {
-	internal class OpenTerminalAction : ObservableObject, IAction
+	internal partial class OpenTerminalAction : ObservableObject, IAction
 	{
 		private readonly IContentPageContext context;
 
@@ -22,8 +22,11 @@ namespace Files.App.Actions
 		public RichGlyph Glyph
 			=> new("\uE756");
 
-		public bool IsExecutable
+		public virtual bool IsExecutable
 			=> GetIsExecutable();
+
+		public virtual bool IsAccessibleGlobally
+			=> true;
 
 		public OpenTerminalAction()
 		{
@@ -74,7 +77,7 @@ namespace Files.App.Actions
 			};
 		}
 
-		protected string[] GetPaths()
+		protected virtual string[] GetPaths()
 		{
 			if (context.HasSelection)
 			{

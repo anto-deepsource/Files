@@ -1,5 +1,5 @@
-// Copyright (c) 2024 Files Community
-// Licensed under the MIT License. See the LICENSE.
+// Copyright (c) Files Community
+// Licensed under the MIT License.
 
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text.RegularExpressions;
@@ -45,12 +45,12 @@ namespace Files.App.Utils.Storage
 						{
 							if (colonSplit[0] == "System.FileName" || colonSplit[0] == "fileName" || colonSplit[0] == "name")
 							{
-								items = items.Where(x => Regex.IsMatch(x.Name, colonSplit[1].Replace("\"", "", StringComparison.Ordinal).Replace("*", "(.*?)", StringComparison.Ordinal), RegexOptions.IgnoreCase)).ToList();
+								items = items.Where(x => Regex.IsMatch(x.Name, Regex.Escape(colonSplit[1].Replace("\"", "", StringComparison.Ordinal)).Replace("\\*", ".*").Replace("\\?", "."), RegexOptions.IgnoreCase)).ToList();
 							}
 						}
 						else
 						{
-							items = items.Where(x => Regex.IsMatch(x.Name, split.Replace("\"", "", StringComparison.Ordinal).Replace("*", "(.*?)", StringComparison.Ordinal), RegexOptions.IgnoreCase)).ToList();
+							items = items.Where(x => Regex.IsMatch(x.Name, Regex.Escape(split.Replace("\"", "", StringComparison.Ordinal)).Replace("\\*", ".*").Replace("\\?", "."), RegexOptions.IgnoreCase)).ToList();
 						}
 					}
 				}

@@ -1,5 +1,5 @@
-// Copyright (c) 2024 Files Community
-// Licensed under the MIT License. See the LICENSE.
+// Copyright (c) Files Community
+// Licensed under the MIT License.
 
 using System.Collections.Specialized;
 using System.Diagnostics.CodeAnalysis;
@@ -29,10 +29,10 @@ namespace Files.App.Utils
 			try
 			{
 				// Check if WSL is installed
-				const string WslRegistryPath = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Lxss";
+				const string WslRegistryPath = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Lxss\MSI";
 				using (var key = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(WslRegistryPath))
 				{
-					if (key != null && key.GetSubKeyNames().Length == 0)
+					if (key is null || key.GetValue("InstallLocation") is null)
 						return;
 				}
 

@@ -1,12 +1,11 @@
-﻿// Copyright (c) 2024 Files Community
-// Licensed under the MIT License. See the LICENSE.
+﻿// Copyright (c) Files Community
+// Licensed under the MIT License.
 
 using System.Collections.Frozen;
-using System.Collections.Immutable;
 
 namespace Files.App.Data.Commands
 {
-	internal sealed class ModifiableCommandManager : IModifiableCommandManager
+	internal sealed partial class ModifiableCommandManager : IModifiableCommandManager
 	{
 		private static readonly ICommandManager Commands = Ioc.Default.GetRequiredService<ICommandManager>();
 
@@ -17,6 +16,7 @@ namespace Files.App.Data.Commands
 		public IRichCommand None => ModifiableCommands[CommandCodes.None];
 		public IRichCommand PasteItem => ModifiableCommands[CommandCodes.PasteItem];
 		public IRichCommand DeleteItem => ModifiableCommands[CommandCodes.DeleteItem];
+		public IRichCommand OpenProperties => ModifiableCommands[CommandCodes.OpenProperties];
 
 		public ModifiableCommandManager()
 		{
@@ -34,6 +34,9 @@ namespace Files.App.Data.Commands
 			}),
 			[CommandCodes.DeleteItem] = new ModifiableCommand(Commands.DeleteItem, new() {
 				{ KeyModifiers.Shift,  Commands.DeleteItemPermanently }
+			}),
+			[CommandCodes.OpenProperties] = new ModifiableCommand(Commands.OpenProperties, new() {
+				{ KeyModifiers.Shift,  Commands.OpenClassicProperties }
 			}),
 		}.ToFrozenDictionary();
 	}

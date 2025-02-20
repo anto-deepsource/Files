@@ -126,6 +126,9 @@
   <data name="CopyPathWithQuotes" xml:space="preserve">
     <value>Copiar caminho com aspas</value>
   </data>
+  <data name="CopyItemPathWithQuotes" xml:space="preserve">
+    <value>Copiar, com aspas, o caminho do item selecionado</value>
+  </data>
   <data name="Browse" xml:space="preserve">
     <value>Explorar</value>
   </data>
@@ -249,6 +252,9 @@
   <data name="Paste" xml:space="preserve">
     <value>Colar</value>
   </data>
+  <data name="PasteShortcut" xml:space="preserve">
+    <value>Colar atalho</value>
+  </data>
   <data name="BaseLayoutContextFlyoutNew.Label" xml:space="preserve">
     <value>Novo</value>
   </data>
@@ -291,8 +297,8 @@
   <data name="EnterAnItemName" xml:space="preserve">
     <value>Introduza o nome do item</value>
   </data>
-  <data name="RenameDialog.PrimaryButtonText" xml:space="preserve">
-    <value>Definir nome</value>
+  <data name="CreateNewItemTitle" xml:space="preserve">
+    <value>Criar {0}</value>
   </data>
   <data name="LightTheme" xml:space="preserve">
     <value>Claro</value>
@@ -1052,9 +1058,6 @@
   <data name="NavToolbarDetails.ToolTipService.ToolTip" xml:space="preserve">
     <value>Detalhes (Ctrl+Shift+1)</value>
   </data>
-  <data name="NavToolbarTiles.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Mosaicos (Ctrl+Shift+2)</value>
-  </data>
   <data name="DateDeleted" xml:space="preserve">
     <value>Data de eliminação</value>
   </data>
@@ -1074,13 +1077,13 @@
     <value>Mostrar/ocultar painel de detalhes</value>
   </data>
   <data name="ToggleDetailsPaneDescription" xml:space="preserve">
-    <value>Alternar painel de detalhes para ver as propriedades básicas do ficheiro</value>
+    <value>Mostrar/ocultar detalhes para ver as propriedades do ficheiro</value>
   </data>
   <data name="ToggleInfoPane" xml:space="preserve">
     <value>Mostrar/ocultar painel de informações</value>
   </data>
   <data name="ToggleInfoPaneDescription" xml:space="preserve">
-    <value>Alternar painel de informações para ver os painéis detalhes ou de pré-visualização</value>
+    <value>Mostrar/ocultar painel de informações para ver os detalhes ou pré-visualização</value>
   </data>
   <data name="ToggleToolbar" xml:space="preserve">
     <value>Mostrar/ocultar barra de ferramentas</value>
@@ -1237,6 +1240,12 @@
   </data>
   <data name="OpenStorageSense" xml:space="preserve">
     <value>Abrir sensor de armanezamento</value>
+  </data>
+  <data name="OpenStorageSenseDescription" xml:space="preserve">
+    <value>Abrir Sensor de armazenamento nas definições Windows</value>
+  </data>
+  <data name="Cleanup" xml:space="preserve">
+    <value>Limpeza</value>
   </data>
   <data name="Copy" xml:space="preserve">
     <value>Copiar</value>
@@ -1646,15 +1655,6 @@
   <data name="Home" xml:space="preserve">
     <value>Início</value>
   </data>
-  <data name="BaseLayoutContextFlyoutDetails.KeyboardAcceleratorTextOverride" xml:space="preserve">
-    <value>Ctrl+Shift+1</value>
-  </data>
-  <data name="BaseLayoutContextFlyoutTiles.KeyboardAcceleratorTextOverride" xml:space="preserve">
-    <value>Ctrl+Shift+2</value>
-  </data>
-  <data name="BaseLayoutContextFlyoutColumn.KeyboardAcceleratorTextOverride" xml:space="preserve">
-    <value>Ctrl+Shift+6</value>
-  </data>
   <data name="ArchiveExtractionCompletedSuccessfullyText" xml:space="preserve">
     <value>A extração do arquivo foi terminada com sucesso.</value>
   </data>
@@ -1712,8 +1712,8 @@
   <data name="Columns" xml:space="preserve">
     <value>Colunas</value>
   </data>
-  <data name="Tiles" xml:space="preserve">
-    <value>Mosaicos</value>
+  <data name="Cards" xml:space="preserve">
+    <value>Cartões</value>
   </data>
   <data name="OpenFoldersInNewTab" xml:space="preserve">
     <value>Abrir pastas em novo separador</value>
@@ -1812,7 +1812,7 @@
     <value>Cores 8-bit (256)</value>
   </data>
   <data name="CompatibilityDisableFullscreenOptimizations" xml:space="preserve">
-    <value>Desativar optimizações de ecrã inteiro</value>
+    <value>Desativar otimizações de ecrã completo</value>
   </data>
   <data name="CompatibilityRunIn640x480Resolution" xml:space="preserve">
     <value>Executar com a resolução 640 x 480</value>
@@ -1825,6 +1825,18 @@
   </data>
   <data name="CompatibilityRegisterThisProgramForRestart" xml:space="preserve">
     <value>Registar este programa para reiniciar</value>
+  </data>
+  <data name="StartWindow" xml:space="preserve">
+    <value>Janela inicial</value>
+  </data>
+  <data name="NormalWindow" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  <data name="Minimized" xml:space="preserve">
+    <value>Minimizada</value>
+  </data>
+  <data name="Maximized" xml:space="preserve">
+    <value>Maximizada</value>
   </data>
   <data name="RunAsAdministrator" xml:space="preserve">
     <value>Executar como administrador</value>
@@ -1852,6 +1864,9 @@
   </data>
   <data name="SettingsSetAsDefaultFileManagerDescription" xml:space="preserve">
     <value>Esta opção modifica o registo do sistema e pode ter efeitos inesperados no seu dispositivo. Continue por sua conta e risco.</value>
+  </data>
+  <data name="ShowFlattenOptionsDescription" xml:space="preserve">
+    <value>Estas operações são permanentes e não recomendamos a sua utilização. Continue por sua conta e risco.</value>
   </data>
   <data name="FolderWidgetCreateNewLibraryDialogTitleText" xml:space="preserve">
     <value>Criar biblioteca</value>
@@ -1930,6 +1945,9 @@
   </data>
   <data name="CloseOtherTabs" xml:space="preserve">
     <value>Fechar outros separadores</value>
+  </data>
+  <data name="CloseAllTabs" xml:space="preserve">
+    <value>Fechar todos os separadores</value>
   </data>
   <data name="Music" xml:space="preserve">
     <value>Música</value>
@@ -2026,6 +2044,21 @@
   </data>
   <data name="Compress" xml:space="preserve">
     <value>Comprimir</value>
+  </data>
+  <data name="FlattenFolderDescription" xml:space="preserve">
+    <value>Mover todo o conteúdo das sub-pastas para a localização especificada</value>
+  </data>
+  <data name="FlattenFolder" xml:space="preserve">
+    <value>Nivelar pasta</value>
+  </data>
+  <data name="Flatten" xml:space="preserve">
+    <value>Nivelar</value>
+  </data>
+  <data name="FlattenFolderDialogContent" xml:space="preserve">
+    <value>Nivelar uma pasta moverá todo o conteúdo das subpastas para o local selecionado. Esta operação é permanente e não pode ser revertida. Ao utilizar esta funcionalidade, reconhece o risco e concorda em não responsabilizar a equipa de Files por qualquer perda de dados.</value>
+  </data>
+  <data name="ShowFlattenOptions" xml:space="preserve">
+    <value>Mostrar opções de nivelamento</value>
   </data>
   <data name="SelectFilesAndFoldersOnHover" xml:space="preserve">
     <value>Selecionar ficheiros e pastas ao passar com o rato por cima</value>
@@ -2162,6 +2195,9 @@
   <data name="WhatsNew" xml:space="preserve">
     <value>Novidades</value>
   </data>
+  <data name="WhatsNewDescription" xml:space="preserve">
+    <value>Notas da versão</value>
+  </data>
   <data name="CannotCreateShortcutDialogTitle" xml:space="preserve">
     <value>Criar um atalho neste local requer privilégios de administrador</value>
   </data>
@@ -2247,13 +2283,13 @@
     <value>Mostrar itens ocultos</value>
   </data>
   <data name="FormatDriveText" xml:space="preserve">
-    <value>Formatar...</value>
+    <value>Formatar</value>
   </data>
   <data name="Help" xml:space="preserve">
     <value>Ajuda</value>
   </data>
   <data name="FullScreen" xml:space="preserve">
-    <value>Ativar/desativar ecrã inteiro</value>
+    <value>Ativar/desativar ecrã completo</value>
   </data>
   <data name="ConfirmDeleteTag" xml:space="preserve">
     <value>Tem a certeza de que deseja eliminar esta etiqueta?</value>
@@ -2340,7 +2376,7 @@
     <value>Abrir página de ajuda no navegador</value>
   </data>
   <data name="ToggleFullScreenDescription" xml:space="preserve">
-    <value>Ativa/desativa o ecrã inteiro</value>
+    <value>Ativar/desativar ecrã completo</value>
   </data>
   <data name="EnterCompactOverlayDescription" xml:space="preserve">
     <value>Ativar modo de sobreposição compacta</value>
@@ -2357,6 +2393,9 @@
   <data name="ToggleShowHiddenItemsDescription" xml:space="preserve">
     <value>Mostrar/ocultar itens ocultos</value>
   </data>
+  <data name="ToggleDotFilesSettingDescription" xml:space="preserve">
+    <value>Mostrar/ocultar ficheiros iniciados com um ponto</value>
+  </data>
   <data name="ToggleShowFileExtensionsDescription" xml:space="preserve">
     <value>Ativar/desativar exibição das extensões dos ficheiros</value>
   </data>
@@ -2370,16 +2409,25 @@
     <value>Copiar itens para a área de transferência</value>
   </data>
   <data name="CopyPathDescription" xml:space="preserve">
+    <value>Copiar caminho do diretório atual para a área de transferência</value>
+  </data>
+  <data name="CopyItemPathDescription" xml:space="preserve">
     <value>Copiar caminho dos itens selecionados para a área de transferência</value>
   </data>
+  <data name="CopyItemPathWithQuotesDescription" xml:space="preserve">
+    <value>Copiar, com aspas, o caminho dos itens selecionados para a área de transferência</value>
+  </data>
   <data name="CopyPathWithQuotesDescription" xml:space="preserve">
-    <value>Copiar caminho dos itens selecionados, com aspas, para a área de transferência</value>
+    <value>Copiar, com aspas, o caminho do diretório atual para a área de transferência</value>
   </data>
   <data name="CutItemDescription" xml:space="preserve">
     <value>Cortar itens para a área de transferência</value>
   </data>
   <data name="PasteItemDescription" xml:space="preserve">
     <value>Colar itens na pasta atual (da área de transferência)</value>
+  </data>
+  <data name="PasteShortcutDescription" xml:space="preserve">
+    <value>Colar itens da área de transferência na pasta atual (como atalho)</value>
   </data>
   <data name="PasteItemToSelectionDescription" xml:space="preserve">
     <value>Colar itens na pasta selecionada (da área de transferência)</value>
@@ -2525,8 +2573,8 @@
   <data name="LayoutDetailsDescription" xml:space="preserve">
     <value>Trocar para a vista de detalhes</value>
   </data>
-  <data name="LayoutTilesDescription" xml:space="preserve">
-    <value>Trocar para a vista de mosaicos</value>
+  <data name="LayoutCardsDescription" xml:space="preserve">
+    <value>Trocar para vista em cartões</value>
   </data>
   <data name="LayoutListDescription" xml:space="preserve">
     <value>Trocar para vista de lista</value>
@@ -2660,6 +2708,9 @@
   <data name="CloseOtherTabsSelectedDescription" xml:space="preserve">
     <value>Fechar todos os separadores à exceção do selecionado</value>
   </data>
+  <data name="CloseAllTabsDescription" xml:space="preserve">
+    <value>Fechar todos os separadores, incluindo o atual</value>
+  </data>
   <data name="ReopenClosedTabDescription" xml:space="preserve">
     <value>Reabrir último separador fechado</value>
   </data>
@@ -2676,10 +2727,10 @@
     <value>Fechar painel ativo</value>
   </data>
   <data name="FocusOtherPane" xml:space="preserve">
-    <value>Focus other pane</value>
+    <value>Foco no outro painel</value>
   </data>
   <data name="FocusOtherPaneDescription" xml:space="preserve">
-    <value>Switch focus to the non active pane</value>
+    <value>Trocar foco para o painel inativo</value>
   </data>
   <data name="ToggleSidebar" xml:space="preserve">
     <value>Mostrar/ocultar barra lateral</value>
@@ -3060,8 +3111,14 @@
   <data name="OpenProperties" xml:space="preserve">
     <value>Mostrar propriedades</value>
   </data>
+  <data name="OpenClassicProperties" xml:space="preserve">
+    <value>Abrir propriedades do Explorador de ficheiros</value>
+  </data>
   <data name="OpenPropertiesDescription" xml:space="preserve">
     <value>Abrir janela de propriedades</value>
+  </data>
+  <data name="OpenClassicPropertiesDescription" xml:space="preserve">
+    <value>Abrir janela de propriedades do Explorador de ficheiros</value>
   </data>
   <data name="Locals" xml:space="preserve">
     <value>Locais</value>
@@ -3125,7 +3182,7 @@
     <value>Mica alternativo</value>
   </data>
   <data name="BackdropMaterial" xml:space="preserve">
-    <value>Backdrop Material</value>
+    <value>Tema de fundo</value>
   </data>
   <data name="Solid" xml:space="preserve">
     <value>Sólido</value>
@@ -3657,9 +3714,6 @@
   <data name="QuestionsAndDiscussions" xml:space="preserve">
     <value>Questões e discussões</value>
   </data>
-  <data name="TilesViewSizeInfo" xml:space="preserve">
-    <value>Tamanhos adicionais ainda não estão disponíveis para o modo Mosaico.</value>
-  </data>
   <data name="Compact" xml:space="preserve">
     <value>Compacto</value>
     <comment>Used to describe layout sizes</comment>
@@ -3855,51 +3909,134 @@
   </data>
   <data name="ShowToolbar" xml:space="preserve">
     <value>Mostrar barra de ferramentas</value>
-    <comment>Setting that controls if the Toolbar is shown in the main view</comment>
+    <comment>Setting that controls if the toolbar is shown in the main view</comment>
   </data>
   <data name="TabActions" xml:space="preserve">
     <value>Menu de ações em separadores</value>
   </data>
   <data name="AddVerticalPane" xml:space="preserve">
-    <value>Add vertical pane</value>
+    <value>Adicionar painel vertical</value>
   </data>
   <data name="AddVerticalPaneDescription" xml:space="preserve">
-    <value>Add a vertical pane</value>
+    <value>Adicionar painel vertical</value>
   </data>
   <data name="AddHorizontalPane" xml:space="preserve">
-    <value>Add horizontal pane</value>
+    <value>Adicionar painel horizontal</value>
   </data>
   <data name="AddHorizontalPaneDescription" xml:space="preserve">
-    <value>Add a horizontal pane</value>
+    <value>Adicionar painel horizontal</value>
   </data>
   <data name="ArrangePanesVertically" xml:space="preserve">
-    <value>Arrange vertically</value>
+    <value>Organizar verticalmente</value>
   </data>
   <data name="ArrangePanesVerticallyDescription" xml:space="preserve">
-    <value>Arrange panes vertically</value>
+    <value>Organizar painéis verticalmente</value>
   </data>
   <data name="ArrangePanesHorizontally" xml:space="preserve">
-    <value>Arrange horizontally</value>
+    <value>Organizar horizontalmente</value>
   </data>
   <data name="ArrangePanesHorizontallyDescription" xml:space="preserve">
-    <value>Arrange panes horizontally</value>
+    <value>Organizar painéis horizontalmente</value>
   </data>
   <data name="AddPane" xml:space="preserve">
-    <value>Add pane</value>
+    <value>Adicionar painel</value>
   </data>
   <data name="ShowTabActions" xml:space="preserve">
-    <value>Show tab actions button in the title bar</value>
+    <value>Mostrar botão para ações de separador na barra de título</value>
   </data>
   <data name="ArrangePanes" xml:space="preserve">
-    <value>Arrange panes</value>
+    <value>Organizar painéis</value>
   </data>
   <data name="DefaultPaneArrangement" xml:space="preserve">
-    <value>Default pane arrangement</value>
+    <value>Organização padrão dos painéis</value>
   </data>
   <data name="Horizontal" xml:space="preserve">
     <value>Horizontal</value>
   </data>
   <data name="Vertical" xml:space="preserve">
     <value>Vertical</value>
+  </data>
+  <data name="ShowSystemTrayIcon" xml:space="preserve">
+    <value>Mostrar ícone na bandeja do sistema</value>
+  </data>
+  <data name="CPUThreads" xml:space="preserve">
+    <value>Processos do CPU</value>
+  </data>
+  <data name="NavigateHomeDescription" xml:space="preserve">
+    <value>Ir para a página inicial</value>
+  </data>
+  <data name="ShowHomeButton" xml:space="preserve">
+    <value>Mostrar botão Início na barra de endereço</value>
+  </data>
+  <data name="Toolbars" xml:space="preserve">
+    <value>Barras de ferramentas</value>
+  </data>
+  <data name="UserID" xml:space="preserve">
+    <value>ID do utilizador</value>
+  </data>
+  <data name="BulkRename" xml:space="preserve">
+    <value>Mudar nome em lote</value>
+  </data>
+  <data name="CompressContents" xml:space="preserve">
+    <value>Comprimir conteúdo</value>
+  </data>
+  <data name="ShowCreateAlternateDataStream" xml:space="preserve">
+    <value>Mostrar opção para criar fluxo de dados alternativo</value>
+  </data>
+  <data name="CreateAlternateDataStream" xml:space="preserve">
+    <value>Criar fluxo de dados alternativo</value>
+  </data>
+  <data name="CreateAlternateDataStreamDescription" xml:space="preserve">
+    <value>Criar fluxo de dados alternativo para os itens selecionado(s)</value>
+  </data>
+  <data name="EnterDataStreamName" xml:space="preserve">
+    <value>Introduza o nome do fluxo</value>
+  </data>
+  <data name="ErrorCreatingDataStreamTitle" xml:space="preserve">
+    <value>Ocorreu um erro ao criar o fluxo de dados alternativo</value>
+  </data>
+  <data name="ErrorCreatingDataStreamDescription" xml:space="preserve">
+    <value>Tenha em atenção de que os fluxos de dados alternativos apenas funcionam em unidades NTFS.</value>
+  </data>
+  <data name="DataStreamsAreHiddenTitle" xml:space="preserve">
+    <value>Atualmente, os fluxos de dados alternativos estão ocultos</value>
+  </data>
+  <data name="DataStreamsAreHiddenDescription" xml:space="preserve">
+    <value>Gostaria de mostrar os fluxos de dados alternativos? Pode alterar esta opção nas definições de ficheiros e pastas.</value>
+  </data>
+  <data name="ManageTags" xml:space="preserve">
+    <value>Gerir etiquetas</value>
+  </data>
+  <data name="Available" xml:space="preserve">
+    <value>Disponível</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="AlwaysSwitchToNewlyOpenedTab" xml:space="preserve">
+    <value>Trocar foco para o separador mais recente</value>
+  </data>
+  <data name="ToggleShelfPane" xml:space="preserve">
+    <value>Mostrar/ocultar painel Estante</value>
+  </data>
+  <data name="ToggleShelfPaneDescription" xml:space="preserve">
+    <value>Alternar exibição do painel Estante</value>
+  </data>
+  <data name="ShowShelfPaneButtonInAddressBar" xml:space="preserve">
+    <value>Mostrar botão para alternar o painel Estante na barra de endereço</value>
+  </data>
+  <data name="Shelf" xml:space="preserve">
+    <value>Estante</value>
+    <comment>'Shelf' refers to the Shelf Pane feature, where users can conveniently drag and drop files for quick access and perform bulk actions with ease.</comment>
+  </data>
+  <data name="ClearItems" xml:space="preserve">
+    <value>Limpar itens</value>
+  </data>
+  <data name="RemoveFromShelf" xml:space="preserve">
+    <value>Remover da estante</value>
+  </data>
+  <data name="AddToShelf" xml:space="preserve">
+    <value>Adicionar à estante</value>
+    <comment>Tooltip that displays when dragging items to the Shelf Pane</comment>
   </data>
 </root>

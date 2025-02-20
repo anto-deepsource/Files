@@ -38,11 +38,13 @@ namespace Files.App.UserControls.FilePreviews
 			var physicalSize = contentPresenter.RenderSize;
 			var physicalPos = source.TransformPoint(new Point(0, 0));
 			var scale = XamlRoot.RasterizationScale;
-			var result = new RECT();
-			result.Left = (int)(physicalPos.X * scale + 0.5);
-			result.Top = (int)(physicalPos.Y * scale + 0.5);
-			result.Width = (int)(physicalSize.Width * scale + 0.5);
-			result.Height = (int)(physicalSize.Height * scale + 0.5);
+			var result = new RECT
+			{
+				X = (int)(physicalPos.X * scale + 0.5),
+				Y = (int)(physicalPos.Y * scale + 0.5),
+				Width = (int)(physicalSize.Width * scale + 0.5),
+				Height = (int)(physicalSize.Height * scale + 0.5)
+			};
 			return result;
 		}
 

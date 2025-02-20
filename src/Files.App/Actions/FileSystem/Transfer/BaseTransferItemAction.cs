@@ -1,5 +1,5 @@
-﻿// Copyright (c) 2024 Files Community
-// Licensed under the MIT License. See the LICENSE.
+﻿// Copyright (c) Files Community
+// Licensed under the MIT License.
 
 using Microsoft.Extensions.Logging;
 using System.Collections.Concurrent;
@@ -25,7 +25,7 @@ namespace Files.App.Actions
 
 		public async Task ExecuteTransferAsync(DataPackageOperation type = DataPackageOperation.Copy)
 		{
-			if (ContentPageContext.ShellPage is null ||
+			if (ContentPageContext.ShellPage?.SlimContentPage is null ||
 				ContentPageContext.ShellPage.SlimContentPage.IsItemSelected is false)
 				return;
 

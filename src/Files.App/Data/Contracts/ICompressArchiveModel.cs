@@ -1,5 +1,5 @@
-﻿// Copyright (c) 2024 Files Community
-// Licensed under the MIT License. See the LICENSE.
+﻿// Copyright (c) Files Community
+// Licensed under the MIT License.
 
 namespace Files.App.Data.Contracts
 {
@@ -47,6 +47,11 @@ namespace Files.App.Data.Contracts
 		/// 7zip archive splitting size.
 		/// </summary>
 		ArchiveSplittingSizes SplittingSize { get; }
+		
+		/// <summary>
+		/// Number of CPU Threads to use.
+		/// </summary>
+		int CPUThreads { get; }
 
 		/// <summary>
 		/// Archiving progress.

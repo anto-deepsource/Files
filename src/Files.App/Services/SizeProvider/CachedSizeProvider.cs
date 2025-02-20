@@ -1,5 +1,5 @@
-﻿// Copyright (c) 2024 Files Community
-// Licensed under the MIT License. See the LICENSE.
+﻿// Copyright (c) Files Community
+// Licensed under the MIT License.
 
 using Files.App.Extensions;
 using System;
@@ -11,7 +11,7 @@ using static Files.App.Helpers.Win32Helper;
 
 namespace Files.App.Services.SizeProvider
 {
-	public sealed class CachedSizeProvider : ISizeProvider
+	public sealed partial class CachedSizeProvider : ISizeProvider
 	{
 		private readonly ConcurrentDictionary<string, ulong> sizes = new();
 
@@ -37,6 +37,7 @@ namespace Files.App.Services.SizeProvider
 				RaiseSizeChanged(path, 0, SizeChangedValueState.None);
 			}
 
+			var stopwatch = Stopwatch.StartNew();
 			ulong size = await Calculate(path);
 
 			sizes[path] = size;
@@ -81,8 +82,10 @@ namespace Files.App.Services.SizeProvider
 							await Task.Yield();
 							sizes[localPath] = localSize;
 						}
-						if (level is 0)
+						if (level is 0 && stopwatch.ElapsedMilliseconds > 500)
 						{
+							// Limit updates to every 0.5 seconds to prevent crashes due to frequent updates
+							stopwatch.Restart();
 							RaiseSizeChanged(path, size, SizeChangedValueState.Intermediate);
 						}
 

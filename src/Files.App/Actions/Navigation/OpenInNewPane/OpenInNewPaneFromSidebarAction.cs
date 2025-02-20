@@ -1,12 +1,11 @@
-﻿// Copyright (c) 2024 Files Community
-// Licensed under the MIT License. See the LICENSE.
+﻿// Copyright (c) Files Community
+// Licensed under the MIT License.
 
 namespace Files.App.Actions
 {
-	internal sealed class OpenInNewPaneFromSidebarAction : BaseOpenInNewPaneAction
+	internal sealed partial class OpenInNewPaneFromSidebarAction : BaseOpenInNewPaneAction
 	{
 		public override bool IsExecutable =>
-			UserSettingsService.GeneralSettingsService.ShowOpenInNewPane &&
 			SidebarContext.IsItemRightClicked &&
 			SidebarContext.RightClickedItem is not null &&
 			SidebarContext.RightClickedItem.MenuOptions.IsLocationItem;

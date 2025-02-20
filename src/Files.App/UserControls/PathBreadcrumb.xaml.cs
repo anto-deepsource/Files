@@ -1,5 +1,5 @@
-// Copyright (c) 2024 Files Community
-// Licensed under the MIT License. See the LICENSE.
+// Copyright (c) Files Community
+// Licensed under the MIT License.
 
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -20,9 +20,14 @@ namespace Files.App.UserControls
 			ViewModel.PathItemSeparator_DataContextChanged(sender, args);
 		}
 
-		private void PathBoxItemFlyout_Opened(object sender, object e)
+		private void PathBoxItemFlyout_Opening(object sender, object e)
 		{
-			ViewModel.PathboxItemFlyout_Opened(sender, e);
+			ViewModel.PathboxItemFlyout_Opening(sender, e);
+		}
+
+		private void PathBoxItemFlyout_Closed(object sender, object e)
+		{
+			ViewModel.PathBoxItemFlyout_Closed(sender, e) ;
 		}
 
 		private void PathBoxItem_DragLeave(object sender, DragEventArgs e)
@@ -48,6 +53,11 @@ namespace Files.App.UserControls
 		private void PathBoxItem_PointerPressed(object sender, PointerRoutedEventArgs e)
 		{
 			ViewModel.PathBoxItem_PointerPressed(sender, e);
+		}
+
+		private void PathBoxItem_PreviewKeyDown(object sender, KeyRoutedEventArgs e)
+		{
+			ViewModel.PathBoxItem_PreviewKeyDown(sender, e);
 		}
 	}
 }

@@ -1,12 +1,12 @@
-﻿// Copyright (c) 2024 Files Community
-// Licensed under the MIT License. See the LICENSE.
+﻿// Copyright (c) Files Community
+// Licensed under the MIT License.
 
 using System.IO;
 using Windows.Storage;
 
 namespace Files.App.Actions
 {
-	internal sealed class OpenItemAction : ObservableObject, IAction
+	internal sealed partial class OpenItemAction : ObservableObject, IAction
 	{
 		private readonly IContentPageContext context;
 
@@ -17,16 +17,14 @@ namespace Files.App.Actions
 			=> "OpenItemDescription".GetLocalizedResource();
 
 		public RichGlyph Glyph
-			=> new(opacityStyle: "ColorIconOpenFile");
+			=> new(themedIconStyle: "App.ThemedIcons.OpenFile");
 
 		public HotKey HotKey
 			=> new(Keys.Enter);
 
-		private const int MaxOpenCount = 10;
 
 		public bool IsExecutable =>
 			context.HasSelection &&
-			context.SelectedItems.Count <= MaxOpenCount &&
 			!(context.ShellPage is ColumnShellPage &&
 			context.SelectedItem?.PrimaryItemAttribute == StorageItemTypes.Folder);
 
@@ -52,7 +50,7 @@ namespace Files.App.Actions
 		}
 	}
 
-	internal sealed class OpenItemWithApplicationPickerAction : ObservableObject, IAction
+	internal sealed partial class OpenItemWithApplicationPickerAction : ObservableObject, IAction
 	{
 		private readonly IContentPageContext context;
 
@@ -63,7 +61,7 @@ namespace Files.App.Actions
 			=> "OpenItemWithApplicationPickerDescription".GetLocalizedResource();
 
 		public RichGlyph Glyph
-			=> new(opacityStyle: "ColorIconOpenWith");
+			=> new(themedIconStyle: "App.ThemedIcons.OpenWith");
 
 		public bool IsExecutable =>
 			context.HasSelection &&
@@ -93,7 +91,7 @@ namespace Files.App.Actions
 		}
 	}
 
-	internal sealed class OpenParentFolderAction : ObservableObject, IAction
+	internal sealed partial class OpenParentFolderAction : ObservableObject, IAction
 	{
 		private readonly IContentPageContext context;
 

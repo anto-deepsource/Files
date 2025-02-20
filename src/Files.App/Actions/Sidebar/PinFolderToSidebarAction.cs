@@ -1,11 +1,11 @@
-// Copyright (c) 2024 Files Community
-// Licensed under the MIT License. See the LICENSE.
+// Copyright (c) Files Community
+// Licensed under the MIT License.
 
 using Windows.Storage;
 
 namespace Files.App.Actions
 {
-	internal sealed class PinFolderToSidebarAction : ObservableObject, IAction
+	internal sealed partial class PinFolderToSidebarAction : ObservableObject, IAction
 	{
 		private readonly IContentPageContext context;
 		private readonly IQuickAccessService service;
@@ -17,7 +17,7 @@ namespace Files.App.Actions
 			=> "PinFolderToSidebarDescription".GetLocalizedResource();
 
 		public RichGlyph Glyph
-			=> new(opacityStyle: "Icons.Pin.16x16");
+			=> new(themedIconStyle: "App.ThemedIcons.FavoritePin");
 
 		public bool IsExecutable
 			=> GetIsExecutable();

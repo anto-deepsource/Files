@@ -1,5 +1,5 @@
-// Copyright (c) 2024 Files Community
-// Licensed under the MIT License. See the LICENSE.
+// Copyright (c) Files Community
+// Licensed under the MIT License.
 
 using Windows.System;
 
@@ -67,11 +67,11 @@ namespace Files.App.Data.Models
 			};
 
 			var glyph = command.Glyph;
-			if (!string.IsNullOrEmpty(glyph.OpacityStyle))
+			if (!string.IsNullOrEmpty(glyph.ThemedIconStyle))
 			{
-				viewModel.OpacityIcon = new OpacityIconModel
+				viewModel.ThemedIconModel = new ThemedIconModel
 				{
-					OpacityIconStyle = glyph.OpacityStyle,
+					ThemedIconStyle = glyph.ThemedIconStyle,
 				};
 			}
 			else

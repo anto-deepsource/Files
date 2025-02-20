@@ -1,5 +1,5 @@
-﻿// Copyright (c) 2024 Files Community
-// Licensed under the MIT License. See the LICENSE.
+﻿// Copyright (c) Files Community
+// Licensed under the MIT License.
 
 namespace Files.App.Actions
 {
@@ -18,8 +18,7 @@ namespace Files.App.Actions
 
 		public virtual bool IsExecutable =>
 			ContentPageContext.SelectedItem is not null &&
-			ContentPageContext.SelectedItem.IsFolder &&
-			UserSettingsService.GeneralSettingsService.ShowOpenInNewPane;
+			ContentPageContext.SelectedItem.IsFolder;
 
 		public virtual bool IsAccessibleGlobally
 			=> true;

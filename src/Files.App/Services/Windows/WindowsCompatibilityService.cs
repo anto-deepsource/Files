@@ -1,5 +1,5 @@
-﻿// Copyright (c) 2024 Files Community
-// Licensed under the MIT License. See the LICENSE.
+﻿// Copyright (c) Files Community
+// Licensed under the MIT License.
 
 using Microsoft.Win32;
 
@@ -41,13 +41,13 @@ namespace Files.App.Services
 			{
 				return Win32Helper.RunPowershellCommand(
 					@$"Remove-ItemProperty -Path 'HKCU:\{_registrySubPath}' -Name '{filePath}' | Out-Null",
-					true);
+					PowerShellExecutionOptions.Elevated | PowerShellExecutionOptions.Hidden);
 			}
 
 			// Set the new one
 			return Win32Helper.RunPowershellCommand(
 				@$"New-ItemProperty -Path 'HKCU:\{_registrySubPath}' -Name '{filePath}' -Value '{options}' -PropertyType String -Force | Out-Null",
-				true);
+				PowerShellExecutionOptions.Elevated | PowerShellExecutionOptions.Hidden);
 		}
 	}
 }

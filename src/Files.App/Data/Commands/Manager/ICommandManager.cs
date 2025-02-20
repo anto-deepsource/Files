@@ -1,5 +1,5 @@
-// Copyright (c) 2024 Files Community
-// Licensed under the MIT License. See the LICENSE.
+// Copyright (c) Files Community
+// Licensed under the MIT License.
 
 namespace Files.App.Data.Commands
 {
@@ -25,17 +25,22 @@ namespace Files.App.Data.Commands
 		IRichCommand Undo { get; }
 
 		IRichCommand ToggleShowHiddenItems { get; }
+		IRichCommand ToggleDotFilesSetting { get; }
 		IRichCommand ToggleShowFileExtensions { get; }
 		IRichCommand TogglePreviewPane { get; }
 		IRichCommand ToggleDetailsPane { get; }
 		IRichCommand ToggleInfoPane { get; }
 		IRichCommand ToggleToolbar { get; }
+		IRichCommand ToggleShelfPane { get; }
 
 		IRichCommand CopyItem { get; }
+		IRichCommand CopyItemPath { get; }
 		IRichCommand CopyPath { get; }
+		IRichCommand CopyItemPathWithQuotes { get; }
 		IRichCommand CopyPathWithQuotes { get; }
 		IRichCommand CutItem { get; }
 		IRichCommand PasteItem { get; }
+		IRichCommand PasteItemAsShortcut { get; }
 		IRichCommand PasteItemToSelection { get; }
 		IRichCommand DeleteItem { get; }
 		IRichCommand DeleteItemPermanently { get; }
@@ -47,12 +52,15 @@ namespace Files.App.Data.Commands
 		IRichCommand CreateFolder { get; }
 		IRichCommand CreateFolderWithSelection { get; }
 		IRichCommand AddItem { get; }
+		IRichCommand CreateAlternateDataStream { get; }
 		IRichCommand CreateShortcut { get; }
 		IRichCommand CreateShortcutFromDialog { get; }
 		IRichCommand EmptyRecycleBin { get; }
 		IRichCommand RestoreRecycleBin { get; }
 		IRichCommand RestoreAllRecycleBin { get; }
 		IRichCommand FormatDrive { get; }
+		IRichCommand FormatDriveFromHome { get; }
+		IRichCommand FormatDriveFromSidebar { get; }
 		IRichCommand OpenItem { get; }
 		IRichCommand OpenItemWithApplicationPicker { get; }
 		IRichCommand OpenParentFolder { get; }
@@ -88,15 +96,24 @@ namespace Files.App.Data.Commands
 		IRichCommand DecompressArchiveHereSmart { get; }
 		IRichCommand DecompressArchiveToChildFolder { get; }
 
+		IRichCommand FlattenFolder { get; }
+
 		IRichCommand RotateLeft { get; }
 		IRichCommand RotateRight { get; }
 
 		IRichCommand OpenInVSCode { get; }
 		IRichCommand OpenRepoInVSCode { get; }
 		IRichCommand OpenProperties { get; }
+		IRichCommand OpenReleaseNotes { get; }
+		IRichCommand OpenClassicProperties { get; }
+		IRichCommand OpenStorageSense { get; }
+		IRichCommand OpenStorageSenseFromHome { get; }
+		IRichCommand OpenStorageSenseFromSidebar { get; }
 		IRichCommand OpenSettings { get; }
 		IRichCommand OpenTerminal { get; }
 		IRichCommand OpenTerminalAsAdmin { get; }
+		IRichCommand OpenTerminalFromSidebar { get; }
+		IRichCommand OpenTerminalFromHome { get; }
 		IRichCommand OpenCommandPalette { get; }
 		IRichCommand EditInNotepad { get; }
 
@@ -104,7 +121,7 @@ namespace Files.App.Data.Commands
 		IRichCommand LayoutIncreaseSize { get; }
 		IRichCommand LayoutDetails { get; }
 		IRichCommand LayoutList { get; }
-		IRichCommand LayoutTiles { get; }
+		IRichCommand LayoutCards{ get; }
 		IRichCommand LayoutGrid { get; }
 		IRichCommand LayoutColumns { get; }
 		IRichCommand LayoutAdaptive { get; }
@@ -158,6 +175,7 @@ namespace Files.App.Data.Commands
 		IRichCommand NavigateBack { get; }
 		IRichCommand NavigateForward { get; }
 		IRichCommand NavigateUp { get; }
+		IRichCommand NavigateHome { get; }
 
 		IRichCommand DuplicateCurrentTab { get; }
 		IRichCommand DuplicateSelectedTab { get; }
@@ -171,6 +189,7 @@ namespace Files.App.Data.Commands
 		IRichCommand PreviousTab { get; }
 		IRichCommand NextTab { get; }
 		IRichCommand CloseSelectedTab { get; }
+		IRichCommand CloseAllTabs { get; }
 
 		IRichCommand CloseActivePane { get; }
 		IRichCommand FocusOtherPane { get; }

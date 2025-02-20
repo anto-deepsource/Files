@@ -1,5 +1,5 @@
-﻿// Copyright (c) 2024 Files Community
-// Licensed under the MIT License. See the LICENSE.
+﻿// Copyright (c) Files Community
+// Licensed under the MIT License.
 
 using Files.App.Helpers.ContextFlyouts;
 using Microsoft.UI.Xaml;
@@ -17,12 +17,14 @@ namespace Files.App.ViewModels.UserControls.Widgets
 	{
 		// Dependency injections
 
+		protected IWindowsRecentItemsService WindowsRecentItemsService { get; } = Ioc.Default.GetRequiredService<IWindowsRecentItemsService>();
 		protected IUserSettingsService UserSettingsService { get; } = Ioc.Default.GetRequiredService<IUserSettingsService>();
 		protected IQuickAccessService QuickAccessService { get; } = Ioc.Default.GetRequiredService<IQuickAccessService>();
 		protected IStorageService StorageService { get; } = Ioc.Default.GetRequiredService<IStorageService>();
 		protected IHomePageContext HomePageContext { get; } = Ioc.Default.GetRequiredService<IHomePageContext>();
 		protected IContentPageContext ContentPageContext { get; } = Ioc.Default.GetRequiredService<IContentPageContext>();
 		protected IFileTagsService FileTagsService { get; } = Ioc.Default.GetRequiredService<IFileTagsService>();
+		protected IFileTagsSettingsService FileTagsSettingsService { get; } = Ioc.Default.GetRequiredService<IFileTagsSettingsService>();
 		protected DrivesViewModel DrivesViewModel { get; } = Ioc.Default.GetRequiredService<DrivesViewModel>();
 		protected INetworkService NetworkService { get; } = Ioc.Default.GetRequiredService<INetworkService>();
 		protected ICommandManager CommandManager { get; } = Ioc.Default.GetRequiredService<ICommandManager>();
@@ -36,8 +38,6 @@ namespace Files.App.ViewModels.UserControls.Widgets
 		protected ICommand RemoveRecentItemCommand { get; set; } = null!;
 		protected ICommand ClearAllItemsCommand { get; set; } = null!;
 		protected ICommand OpenFileLocationCommand { get; set; } = null!;
-		protected ICommand OpenInNewTabCommand { get; set; } = null!;
-		protected ICommand OpenInNewWindowCommand { get; set; } = null!;
 		protected ICommand OpenPropertiesCommand { get; set; } = null!;
 		protected ICommand PinToSidebarCommand { get; set; } = null!;
 		protected ICommand UnpinFromSidebarCommand { get; set; } = null!;
@@ -65,7 +65,7 @@ namespace Files.App.ViewModels.UserControls.Widgets
 			// Create a new Flyout
 			var itemContextMenuFlyout = new CommandBarFlyout()
 			{
-				Placement = FlyoutPlacementMode.Full
+				Placement = FlyoutPlacementMode.Right
 			};
 
 			// Hook events
@@ -98,16 +98,6 @@ namespace Files.App.ViewModels.UserControls.Widgets
 		}
 
 		// Command methods
-
-		public async Task ExecuteOpenInNewTabCommand(WidgetCardItem? item)
-		{
-			await NavigationHelpers.OpenPathInNewTab(item?.Path ?? string.Empty, false);
-		}
-
-		public async Task ExecuteOpenInNewWindowCommand(WidgetCardItem? item)
-		{
-			await NavigationHelpers.OpenPathInNewWindowAsync(item?.Path ?? string.Empty);
-		}
 
 		public virtual async Task ExecutePinToSidebarCommand(WidgetCardItem? item)
 		{

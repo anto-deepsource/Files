@@ -1,9 +1,8 @@
-﻿// Copyright (c) 2024 Files Community
-// Licensed under the MIT License. See the LICENSE.
+﻿// Copyright (c) Files Community
+// Licensed under the MIT License.
 
 using Microsoft.UI.Xaml.Controls;
 using System.IO;
-using System.Windows.Input;
 using Windows.Storage;
 
 namespace Files.App.ViewModels.UserControls.Widgets
@@ -13,6 +12,8 @@ namespace Files.App.ViewModels.UserControls.Widgets
 	/// </summary>
 	public sealed partial class FileTagsWidgetViewModel : BaseWidgetViewModel, IWidgetViewModel
 	{
+		private CancellationTokenSource _updateCTS;
+
 		// Properties
 
 		public ObservableCollection<WidgetFileTagsContainerItem> Containers { get; } = [];
@@ -28,9 +29,6 @@ namespace Files.App.ViewModels.UserControls.Widgets
 
 		public static event EventHandler<IEnumerable<WidgetFileTagCardItem>>? SelectedTaggedItemsChanged;
 
-		// Commands
-
-		private ICommand OpenInNewPaneCommand { get; set; } = null!;
 
 		// Constructor
 
@@ -38,12 +36,11 @@ namespace Files.App.ViewModels.UserControls.Widgets
 		{
 			_ = InitializeWidget();
 
-			OpenInNewTabCommand = new AsyncRelayCommand<WidgetCardItem>(ExecuteOpenInNewTabCommand);
-			OpenInNewWindowCommand = new AsyncRelayCommand<WidgetCardItem>(ExecuteOpenInNewWindowCommand);
+			FileTagsSettingsService.OnTagsUpdated += FileTagsSettingsService_OnTagsUpdated;
+
 			PinToSidebarCommand = new AsyncRelayCommand<WidgetCardItem>(ExecutePinToSidebarCommand);
 			UnpinFromSidebarCommand = new AsyncRelayCommand<WidgetCardItem>(ExecuteUnpinFromSidebarCommand);
 			OpenFileLocationCommand = new RelayCommand<WidgetCardItem>(ExecuteOpenFileLocationCommand);
-			OpenInNewPaneCommand = new RelayCommand<WidgetCardItem>(ExecuteOpenInNewPaneCommand);
 			OpenPropertiesCommand = new RelayCommand<WidgetCardItem>(ExecuteOpenPropertiesCommand);
 		}
 
@@ -53,33 +50,66 @@ namespace Files.App.ViewModels.UserControls.Widgets
 		{
 			await foreach (var item in FileTagsService.GetTagsAsync())
 			{
-				var container = new WidgetFileTagsContainerItem(item.Uid)
-				{
-					Name = item.Name,
-					Color = item.Color
-				};
-
-				Containers.Add(container);
-				_ = container.InitAsync();
+				CreateTagContainerItem(item);
 			}
 		}
 
-		public Task RefreshWidgetAsync()
+		public async Task RefreshWidgetAsync()
 		{
-			return Task.CompletedTask;
+			_updateCTS?.Cancel();
+			_updateCTS = new CancellationTokenSource();
+			await foreach (var item in FileTagsService.GetTagsAsync())
+			{
+				if (_updateCTS.IsCancellationRequested)
+					break;
+
+				var matchingItem = Containers.First(c => c.Uid == item.Uid);
+				if (matchingItem is null)
+				{
+					CreateTagContainerItem(item);
+				}
+				else
+				{
+					matchingItem.Name = item.Name;
+					matchingItem.Color = item.Color;
+					matchingItem.Tags.Clear();
+					_ = matchingItem.InitAsync(_updateCTS.Token);
+				}
+			}
+		}
+
+		private void CreateTagContainerItem(TagViewModel tag)
+		{
+			var container = new WidgetFileTagsContainerItem(tag.Uid)
+			{
+				Name = tag.Name,
+				Color = tag.Color
+			};
+
+			Containers.Add(container);
+			_ = container.InitAsync();
 		}
 
 		public override List<ContextMenuFlyoutItemViewModel> GetItemMenuItems(WidgetCardItem item, bool isPinned, bool isFolder = false)
 		{
 			return new List<ContextMenuFlyoutItemViewModel>()
 			{
-				new ContextMenuFlyoutItemViewModelBuilder(CommandManager.OpenInNewTabFromHomeAction).Build(),
-				new ContextMenuFlyoutItemViewModelBuilder(CommandManager.OpenInNewWindowFromHomeAction).Build(),
-				new ContextMenuFlyoutItemViewModelBuilder(CommandManager.OpenInNewPaneFromHomeAction).Build(),
+				new ContextMenuFlyoutItemViewModelBuilder(CommandManager.OpenInNewTabFromHomeAction)
+				{
+					IsVisible = UserSettingsService.GeneralSettingsService.ShowOpenInNewTab && CommandManager.OpenInNewTabFromHomeAction.IsExecutable
+				}.Build(),
+				new ContextMenuFlyoutItemViewModelBuilder(CommandManager.OpenInNewWindowFromHomeAction)
+				{
+					IsVisible = UserSettingsService.GeneralSettingsService.ShowOpenInNewWindow && CommandManager.OpenInNewWindowFromHomeAction.IsExecutable
+				}.Build(),
+				new ContextMenuFlyoutItemViewModelBuilder(CommandManager.OpenInNewPaneFromHomeAction)
+				{
+					IsVisible = UserSettingsService.GeneralSettingsService.ShowOpenInNewPane && CommandManager.OpenInNewPaneFromHomeAction.IsExecutable
+				}.Build(),
 				new()
 				{
 					Text = "OpenWith".GetLocalizedResource(),
-					OpacityIcon = new() { OpacityIconStyle = "ColorIconOpenWith" },
+					ThemedIconModel = new() { ThemedIconStyle = "App.ThemedIcons.OpenWith" },
 					Tag = "OpenWithPlaceholder",
 					ShowItem = !isFolder
 				},
@@ -94,7 +124,7 @@ namespace Files.App.ViewModels.UserControls.Widgets
 				new()
 				{
 					Text = "PinFolderToSidebar".GetLocalizedResource(),
-					OpacityIcon = new() { OpacityIconStyle = "Icons.Pin.16x16" },
+					ThemedIconModel = new() { ThemedIconStyle = "App.ThemedIcons.FavoritePin" },
 					Command = PinToSidebarCommand,
 					CommandParameter = item,
 					ShowItem = !isPinned && isFolder
@@ -102,7 +132,7 @@ namespace Files.App.ViewModels.UserControls.Widgets
 				new()
 				{
 					Text = "UnpinFolderFromSidebar".GetLocalizedResource(),
-					OpacityIcon = new() { OpacityIconStyle = "Icons.Unpin.16x16" },
+					ThemedIconModel = new() { ThemedIconStyle = "App.ThemedIcons.FavoritePinRemove" },
 					Command = UnpinFromSidebarCommand,
 					CommandParameter = item,
 					ShowItem = isPinned && isFolder
@@ -116,11 +146,17 @@ namespace Files.App.ViewModels.UserControls.Widgets
 				new()
 				{
 					Text = "Properties".GetLocalizedResource(),
-					OpacityIcon = new() { OpacityIconStyle = "ColorIconProperties" },
+					ThemedIconModel = new() { ThemedIconStyle = "App.ThemedIcons.Properties" },
 					Command = OpenPropertiesCommand,
 					CommandParameter = item,
 					ShowItem = isFolder
 				},
+				new ContextMenuFlyoutItemViewModel()
+				{
+					ItemType = ContextMenuFlyoutItemType.Separator,
+					ShowItem = CommandManager.OpenTerminalFromHome.IsExecutable
+				},
+				new ContextMenuFlyoutItemViewModelBuilder(CommandManager.OpenTerminalFromHome).Build(),
 				new()
 				{
 					ItemType = ContextMenuFlyoutItemType.Separator,
@@ -166,11 +202,6 @@ namespace Files.App.ViewModels.UserControls.Widgets
 			flyout!.Closed += flyoutClosed;
 		}
 
-		private void ExecuteOpenInNewPaneCommand(WidgetCardItem? item)
-		{
-			ContentPageContext.ShellPage!.PaneHolder?.OpenSecondaryPane(item?.Path ?? string.Empty);
-		}
-
 		private void ExecuteOpenFileLocationCommand(WidgetCardItem? item)
 		{
 			var itemPath = Directory.GetParent(item?.Path ?? string.Empty)?.FullName ?? string.Empty;
@@ -186,10 +217,16 @@ namespace Files.App.ViewModels.UserControls.Widgets
 				});
 		}
 
+		private async void FileTagsSettingsService_OnTagsUpdated(object? sender, EventArgs e)
+		{
+			await RefreshWidgetAsync();
+		}
+
 		// Disposer
 
 		public void Dispose()
 		{
+			FileTagsSettingsService.OnTagsUpdated -= FileTagsSettingsService_OnTagsUpdated;
 		}
 	}
 }

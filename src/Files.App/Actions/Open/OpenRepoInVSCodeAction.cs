@@ -1,11 +1,11 @@
-﻿// Copyright (c) 2024 Files Community
-// Licensed under the MIT License. See the LICENSE.
+﻿// Copyright (c) Files Community
+// Licensed under the MIT License.
 
 using Files.App.Utils.Shell;
 
 namespace Files.App.Actions
 {
-	internal sealed class OpenRepoInVSCodeAction : ObservableObject, IAction
+	internal sealed partial class OpenRepoInVSCodeAction : ObservableObject, IAction
 	{
 		private readonly IContentPageContext _context;
 
@@ -33,7 +33,7 @@ namespace Files.App.Actions
 
 		public Task ExecuteAsync(object? parameter = null)
 		{
-			return Win32Helper.RunPowershellCommandAsync($"code \'{_context.ShellPage!.InstanceViewModel.GitRepositoryPath}\'", false);
+			return Win32Helper.RunPowershellCommandAsync($"code \'{_context.ShellPage!.InstanceViewModel.GitRepositoryPath}\'", PowerShellExecutionOptions.Hidden);
 		}
 
 		private void Context_PropertyChanged(object? sender, PropertyChangedEventArgs e)

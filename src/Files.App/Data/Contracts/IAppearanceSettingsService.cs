@@ -1,5 +1,5 @@
-﻿// Copyright (c) 2024 Files Community
-// Licensed under the MIT License. See the LICENSE.
+﻿// Copyright (c) Files Community
+// Licensed under the MIT License.
 
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Media;
@@ -106,5 +106,15 @@ namespace Files.App.Data.Contracts
 		/// Gets or sets a value whether the tab actions button should be displayed.
 		/// </summary>
 		bool ShowTabActions { get; set; }
+
+		/// <summary>
+		/// Gets or sets a value whether the home button should be displayed.
+		/// </summary>
+		bool ShowHomeButton { get; set; }
+
+		/// <summary>
+		/// Gets or sets a value whether the shelf pane toggle button should be displayed.
+		/// </summary>
+		bool ShowShelfPaneToggleButton{ get; set; }
 	}
 }

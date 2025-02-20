@@ -126,6 +126,9 @@
   <data name="CopyPathWithQuotes" xml:space="preserve">
     <value>Tırnak işaretleriyle yolu kopyala</value>
   </data>
+  <data name="CopyItemPathWithQuotes" xml:space="preserve">
+    <value>Seçilen öğenin yolunu tırnak işaretleri ile kopyala</value>
+  </data>
   <data name="Browse" xml:space="preserve">
     <value>Göz at</value>
   </data>
@@ -145,7 +148,7 @@
     <value>Diskteki boyutu:</value>
   </data>
   <data name="UncompressedSize" xml:space="preserve">
-    <value>Sıkıştırılmamış Boyut:</value>
+    <value>Sıkıştırılmamış boyut:</value>
   </data>
   <data name="ErrorDialogThisActionCannotBeDone" xml:space="preserve">
     <value>Bu işlem yapılamaz</value>
@@ -249,6 +252,9 @@
   <data name="Paste" xml:space="preserve">
     <value>Yapıştır</value>
   </data>
+  <data name="PasteShortcut" xml:space="preserve">
+    <value>Kısayol yapıştır</value>
+  </data>
   <data name="BaseLayoutContextFlyoutNew.Label" xml:space="preserve">
     <value>Yeni</value>
   </data>
@@ -274,7 +280,7 @@
     <value>Sil</value>
   </data>
   <data name="PinFolderToSidebar" xml:space="preserve">
-    <value>Hızlı Erişime Sabitle</value>
+    <value>Hızlı erişime sabitle</value>
   </data>
   <data name="WelcomeDialog.Title" xml:space="preserve">
     <value>Files'a hoş geldiniz!</value>
@@ -291,8 +297,8 @@
   <data name="EnterAnItemName" xml:space="preserve">
     <value>Bir öge adı yazın</value>
   </data>
-  <data name="RenameDialog.PrimaryButtonText" xml:space="preserve">
-    <value>İsim ayarla</value>
+  <data name="CreateNewItemTitle" xml:space="preserve">
+    <value>Yeni {0} oluştur</value>
   </data>
   <data name="LightTheme" xml:space="preserve">
     <value>Açık</value>
@@ -379,7 +385,7 @@
     <value>Dosya kullanımda</value>
   </data>
   <data name="Layout" xml:space="preserve">
-    <value>Sayfa Düzeni</value>
+    <value>Sayfa düzeni</value>
   </data>
   <data name="PropertiesDialogReadOnly.Text" xml:space="preserve">
     <value>Salt okunur</value>
@@ -1052,9 +1058,6 @@
   <data name="NavToolbarDetails.ToolTipService.ToolTip" xml:space="preserve">
     <value>Ayrıntılar Görünümü (Ctrl+Shift+1)</value>
   </data>
-  <data name="NavToolbarTiles.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Döşeme Görünümü (Ctrl+Shift+2)</value>
-  </data>
   <data name="DateDeleted" xml:space="preserve">
     <value>Silinme tarihi</value>
   </data>
@@ -1092,7 +1095,7 @@
     <value>Öge Adı</value>
   </data>
   <data name="UnpinFolderFromSidebar" xml:space="preserve">
-    <value>Kenar Çubuğundan Sabitlemeyi Kaldır</value>
+    <value>Kenar Çubuğundan sabitlemeyi kaldır</value>
   </data>
   <data name="Network" xml:space="preserve">
     <value>Ağ</value>
@@ -1237,6 +1240,12 @@
   </data>
   <data name="OpenStorageSense" xml:space="preserve">
     <value>Akıllı Depolama'yı aç</value>
+  </data>
+  <data name="OpenStorageSenseDescription" xml:space="preserve">
+    <value>Windows Ayarlarından Akıllı Depolama sayfasını açın</value>
+  </data>
+  <data name="Cleanup" xml:space="preserve">
+    <value>Temizle</value>
   </data>
   <data name="Copy" xml:space="preserve">
     <value>Kopyala</value>
@@ -1646,15 +1655,6 @@
   <data name="Home" xml:space="preserve">
     <value>Ev</value>
   </data>
-  <data name="BaseLayoutContextFlyoutDetails.KeyboardAcceleratorTextOverride" xml:space="preserve">
-    <value>Ctrl+Shift+1</value>
-  </data>
-  <data name="BaseLayoutContextFlyoutTiles.KeyboardAcceleratorTextOverride" xml:space="preserve">
-    <value>Ctrl+Shift+2</value>
-  </data>
-  <data name="BaseLayoutContextFlyoutColumn.KeyboardAcceleratorTextOverride" xml:space="preserve">
-    <value>Ctrl+Shift+6</value>
-  </data>
   <data name="ArchiveExtractionCompletedSuccessfullyText" xml:space="preserve">
     <value>Arşiv çıkarma işlemi başarıyla tamamlandı.</value>
   </data>
@@ -1712,8 +1712,8 @@
   <data name="Columns" xml:space="preserve">
     <value>Sütunlar</value>
   </data>
-  <data name="Tiles" xml:space="preserve">
-    <value>Sıralar</value>
+  <data name="Cards" xml:space="preserve">
+    <value>Cards</value>
   </data>
   <data name="OpenFoldersInNewTab" xml:space="preserve">
     <value>Klasörleri yeni sekmede aç</value>
@@ -1826,6 +1826,18 @@
   <data name="CompatibilityRegisterThisProgramForRestart" xml:space="preserve">
     <value>Yeniden başlatmak için bu programı kaydet</value>
   </data>
+  <data name="StartWindow" xml:space="preserve">
+    <value>Start window</value>
+  </data>
+  <data name="NormalWindow" xml:space="preserve">
+    <value>Normal window</value>
+  </data>
+  <data name="Minimized" xml:space="preserve">
+    <value>Minimized</value>
+  </data>
+  <data name="Maximized" xml:space="preserve">
+    <value>Maximized</value>
+  </data>
   <data name="RunAsAdministrator" xml:space="preserve">
     <value>Yönetici olarak çalıştır</value>
   </data>
@@ -1852,6 +1864,9 @@
   </data>
   <data name="SettingsSetAsDefaultFileManagerDescription" xml:space="preserve">
     <value>Bu seçenek sistem kayıt defterini değiştirir ve aygıtınızda beklenmeyen yan etkilere neden olabilir. Kendi sorumluluğunuzda devam edin.</value>
+  </data>
+  <data name="ShowFlattenOptionsDescription" xml:space="preserve">
+    <value>Düzleştirme işlemleri kalıcıdır ve önerilmez. Kendi sorumluluğunuzda devam edin.</value>
   </data>
   <data name="FolderWidgetCreateNewLibraryDialogTitleText" xml:space="preserve">
     <value>Kütüphane oluştur</value>
@@ -1930,6 +1945,9 @@
   </data>
   <data name="CloseOtherTabs" xml:space="preserve">
     <value>Diğer Sekmeleri Kapat</value>
+  </data>
+  <data name="CloseAllTabs" xml:space="preserve">
+    <value>Tüm sekmeleri kapat</value>
   </data>
   <data name="Music" xml:space="preserve">
     <value>Müzik</value>
@@ -2026,6 +2044,21 @@
   </data>
   <data name="Compress" xml:space="preserve">
     <value>Sıkıştır</value>
+  </data>
+  <data name="FlattenFolderDescription" xml:space="preserve">
+    <value>Alt klasörlerdeki içerikleri seçilen konuma taşı</value>
+  </data>
+  <data name="FlattenFolder" xml:space="preserve">
+    <value>Klasörü düzleştir</value>
+  </data>
+  <data name="Flatten" xml:space="preserve">
+    <value>Düzleştir</value>
+  </data>
+  <data name="FlattenFolderDialogContent" xml:space="preserve">
+    <value>Bir klasörü düzleştirmek içerikleri alt klasörlerinden seçilen konuma taşıyacaktır. Bu işlem kalıcıdır ve geri alınamaz. Bu deneysel özelliği kullanarak, veri kaybı riskini ve herhangi bir veri kaybında Files ekibini sorumlu tutmamayı kabul etmelisiniz.</value>
+  </data>
+  <data name="ShowFlattenOptions" xml:space="preserve">
+    <value>Düzleştirme seçeneklerini göster</value>
   </data>
   <data name="SelectFilesAndFoldersOnHover" xml:space="preserve">
     <value>Üzerine getirildiğinde dosyaları ve dizinleri seç</value>
@@ -2162,6 +2195,9 @@
   <data name="WhatsNew" xml:space="preserve">
     <value>Yenilikler</value>
   </data>
+  <data name="WhatsNewDescription" xml:space="preserve">
+    <value>Sürüm Notlarını aç</value>
+  </data>
   <data name="CannotCreateShortcutDialogTitle" xml:space="preserve">
     <value>Bu konumda bir kısayol oluşturmak, yönetici ayrıcalıkları gerektirir</value>
   </data>
@@ -2247,7 +2283,7 @@
     <value>Gizli dosyaları göster</value>
   </data>
   <data name="FormatDriveText" xml:space="preserve">
-    <value>Biçimlendir...</value>
+    <value>Biçim</value>
   </data>
   <data name="Help" xml:space="preserve">
     <value>Yardım</value>
@@ -2357,6 +2393,9 @@
   <data name="ToggleShowHiddenItemsDescription" xml:space="preserve">
     <value>Gizli öğelerin gösterilip gösterilmeyeceğini değiştirin</value>
   </data>
+  <data name="ToggleDotFilesSettingDescription" xml:space="preserve">
+    <value>Nokta dosyalarının gösterilip gösterilmeyeceğini değiştir</value>
+  </data>
   <data name="ToggleShowFileExtensionsDescription" xml:space="preserve">
     <value>Dosya uzantılarının gösterilip gösterilmeyeceğini değiştirin</value>
   </data>
@@ -2372,6 +2411,12 @@
   <data name="CopyPathDescription" xml:space="preserve">
     <value>Seçilen öğelerin yolunu panoya kopyala</value>
   </data>
+  <data name="CopyItemPathDescription" xml:space="preserve">
+    <value>Seçilen öğelerin yolunu panoya kopyala</value>
+  </data>
+  <data name="CopyItemPathWithQuotesDescription" xml:space="preserve">
+    <value>Seçilen öğelerin yolunu tırnak işaretleri ile panoya kopyala</value>
+  </data>
   <data name="CopyPathWithQuotesDescription" xml:space="preserve">
     <value>Seçilen öğelerin yolunu tırnak işaretleri ile panoya kopyala</value>
   </data>
@@ -2380,6 +2425,9 @@
   </data>
   <data name="PasteItemDescription" xml:space="preserve">
     <value>Panodaki öge(ler)i mevcut klasöre yapıştır</value>
+  </data>
+  <data name="PasteShortcutDescription" xml:space="preserve">
+    <value>Panodaki öğe(ler)i mevcut klasöre kısayollar olarak yapıştır</value>
   </data>
   <data name="PasteItemToSelectionDescription" xml:space="preserve">
     <value>Panodaki öge(ler)i seçilen klasöre yapıştır</value>
@@ -2448,7 +2496,7 @@
     <value>Klasör(ler)i Kenar Çubuğuna Sabitle</value>
   </data>
   <data name="UnpinFolderFromSidebarDescription" xml:space="preserve">
-    <value>Klasör(ler)i Kenar Çubuğundan Kaldır</value>
+    <value>Klasör(ler)i Kenar Çubuğundan kaldır</value>
   </data>
   <data name="SetAsWallpaperBackgroundDescription" xml:space="preserve">
     <value>Seçilen resmi masaüstü arka planı olarak ayarla</value>
@@ -2525,8 +2573,8 @@
   <data name="LayoutDetailsDescription" xml:space="preserve">
     <value>Detaylar görünümüne geç</value>
   </data>
-  <data name="LayoutTilesDescription" xml:space="preserve">
-    <value>Döşeme görünümüne geç</value>
+  <data name="LayoutCardsDescription" xml:space="preserve">
+    <value>Switch to cards view</value>
   </data>
   <data name="LayoutListDescription" xml:space="preserve">
     <value>Liste görünümüne geç</value>
@@ -2660,6 +2708,9 @@
   <data name="CloseOtherTabsSelectedDescription" xml:space="preserve">
     <value>Seçilen sekme dışındaki sekmeleri kapat</value>
   </data>
+  <data name="CloseAllTabsDescription" xml:space="preserve">
+    <value>Şu anki sekme dahil olmak üzere tüm sekmeleri kapat</value>
+  </data>
   <data name="ReopenClosedTabDescription" xml:space="preserve">
     <value>Son kapatılan sekmeyi yeniden aç</value>
   </data>
@@ -2676,10 +2727,10 @@
     <value>Geçerli sekmeyi kapat</value>
   </data>
   <data name="FocusOtherPane" xml:space="preserve">
-    <value>Focus other pane</value>
+    <value>Diğer sekmeye odaklan</value>
   </data>
   <data name="FocusOtherPaneDescription" xml:space="preserve">
-    <value>Switch focus to the non active pane</value>
+    <value>Odağı aktif olmayan sekmeye geçir</value>
   </data>
   <data name="ToggleSidebar" xml:space="preserve">
     <value>Kenar çubuğunu değiştir</value>
@@ -2938,7 +2989,7 @@
     <value>Kalıcı olarak sil</value>
   </data>
   <data name="DeleteItemPermanentlyDescription" xml:space="preserve">
-    <value>Öğeleri kalıcı olarak sil</value>
+    <value>Ögeleri kalıcı olarak sil</value>
   </data>
   <data name="PlayAllDescription" xml:space="preserve">
     <value>Seçilen medya dosyalarını oynatın</value>
@@ -3060,8 +3111,14 @@
   <data name="OpenProperties" xml:space="preserve">
     <value>Özellikleri aç</value>
   </data>
+  <data name="OpenClassicProperties" xml:space="preserve">
+    <value>Dosya Gezgini özelliklerini aç</value>
+  </data>
   <data name="OpenPropertiesDescription" xml:space="preserve">
     <value>Özellikler penceresini aç</value>
+  </data>
+  <data name="OpenClassicPropertiesDescription" xml:space="preserve">
+    <value>Dosya Gezgini özellikleri penceresi</value>
   </data>
   <data name="Locals" xml:space="preserve">
     <value>Yerel</value>
@@ -3125,7 +3182,7 @@
     <value>Mika Alt</value>
   </data>
   <data name="BackdropMaterial" xml:space="preserve">
-    <value>Zemin Malzemesi</value>
+    <value>Arka plan materyali</value>
   </data>
   <data name="Solid" xml:space="preserve">
     <value>Katı</value>
@@ -3657,9 +3714,6 @@
   <data name="QuestionsAndDiscussions" xml:space="preserve">
     <value>Sorular ve tartışmalar</value>
   </data>
-  <data name="TilesViewSizeInfo" xml:space="preserve">
-    <value>Döşeme Görünümü için henüz ek boyutlar mevcut değildir.</value>
-  </data>
   <data name="Compact" xml:space="preserve">
     <value>Ölçek</value>
     <comment>Used to describe layout sizes</comment>
@@ -3854,52 +3908,135 @@
     <value>Durum:</value>
   </data>
   <data name="ShowToolbar" xml:space="preserve">
-    <value>Araç Çubuğunu Göster</value>
-    <comment>Setting that controls if the Toolbar is shown in the main view</comment>
+    <value>Araç çubuğunu göster</value>
+    <comment>Setting that controls if the toolbar is shown in the main view</comment>
   </data>
   <data name="TabActions" xml:space="preserve">
     <value>Sekme aksiyonları menüsü</value>
   </data>
   <data name="AddVerticalPane" xml:space="preserve">
-    <value>Add vertical pane</value>
+    <value>Dikey sekme ekle</value>
   </data>
   <data name="AddVerticalPaneDescription" xml:space="preserve">
-    <value>Add a vertical pane</value>
+    <value>Dikey bir sekme ekle</value>
   </data>
   <data name="AddHorizontalPane" xml:space="preserve">
-    <value>Add horizontal pane</value>
+    <value>Yatay sekme ekle</value>
   </data>
   <data name="AddHorizontalPaneDescription" xml:space="preserve">
-    <value>Add a horizontal pane</value>
+    <value>Yatay bir sekme ekle</value>
   </data>
   <data name="ArrangePanesVertically" xml:space="preserve">
-    <value>Arrange vertically</value>
+    <value>Dikey düzenle</value>
   </data>
   <data name="ArrangePanesVerticallyDescription" xml:space="preserve">
-    <value>Arrange panes vertically</value>
+    <value>Sekmeleri dikey düzenle</value>
   </data>
   <data name="ArrangePanesHorizontally" xml:space="preserve">
-    <value>Arrange horizontally</value>
+    <value>Yatay düzenle</value>
   </data>
   <data name="ArrangePanesHorizontallyDescription" xml:space="preserve">
-    <value>Arrange panes horizontally</value>
+    <value>Sekmeleri yatay düzenle</value>
   </data>
   <data name="AddPane" xml:space="preserve">
-    <value>Add pane</value>
+    <value>Sekme ekle</value>
   </data>
   <data name="ShowTabActions" xml:space="preserve">
-    <value>Show tab actions button in the title bar</value>
+    <value>İsim çubuğunda sekme eylemleri butonunu göster</value>
   </data>
   <data name="ArrangePanes" xml:space="preserve">
-    <value>Arrange panes</value>
+    <value>Sekmeleri düzenle</value>
   </data>
   <data name="DefaultPaneArrangement" xml:space="preserve">
-    <value>Default pane arrangement</value>
+    <value>Varsayılan sekme dizilimi</value>
   </data>
   <data name="Horizontal" xml:space="preserve">
-    <value>Horizontal</value>
+    <value>Yatay</value>
   </data>
   <data name="Vertical" xml:space="preserve">
-    <value>Vertical</value>
+    <value>Dikey</value>
+  </data>
+  <data name="ShowSystemTrayIcon" xml:space="preserve">
+    <value>Sistem Tepsisinde Files ikonunu göster</value>
+  </data>
+  <data name="CPUThreads" xml:space="preserve">
+    <value>CPU iş parçacıkları</value>
+  </data>
+  <data name="NavigateHomeDescription" xml:space="preserve">
+    <value>Ev sayfasına gidin</value>
+  </data>
+  <data name="ShowHomeButton" xml:space="preserve">
+    <value>Show home button in address bar</value>
+  </data>
+  <data name="Toolbars" xml:space="preserve">
+    <value>Araç çubukları</value>
+  </data>
+  <data name="UserID" xml:space="preserve">
+    <value>Kullanıcı kimliği</value>
+  </data>
+  <data name="BulkRename" xml:space="preserve">
+    <value>Toplu yeniden adlandırma</value>
+  </data>
+  <data name="CompressContents" xml:space="preserve">
+    <value>İçerikleri sıkıştır</value>
+  </data>
+  <data name="ShowCreateAlternateDataStream" xml:space="preserve">
+    <value>Alternatif veri akışı oluşturma seçeneğini göster</value>
+  </data>
+  <data name="CreateAlternateDataStream" xml:space="preserve">
+    <value>Alternatif veri akışı oluştur</value>
+  </data>
+  <data name="CreateAlternateDataStreamDescription" xml:space="preserve">
+    <value>Seçilen öğe(ler) için alternatif veri akışı oluştur</value>
+  </data>
+  <data name="EnterDataStreamName" xml:space="preserve">
+    <value>Veri akışı adını girin</value>
+  </data>
+  <data name="ErrorCreatingDataStreamTitle" xml:space="preserve">
+    <value>Alternatif veri akışını oluştururken bir sorun oluştu</value>
+  </data>
+  <data name="ErrorCreatingDataStreamDescription" xml:space="preserve">
+    <value>Lütfen şunu not edin ki alternatif veri akışları yalnızca NTFS formatına sahip olan sürücülerde çalışacaktır.</value>
+  </data>
+  <data name="DataStreamsAreHiddenTitle" xml:space="preserve">
+    <value>Alternatif veri akışları şu an gizli</value>
+  </data>
+  <data name="DataStreamsAreHiddenDescription" xml:space="preserve">
+    <value>Başka veri akışlarını görüntülemek ister misiniz? Bu ayarı her zaman dosyalar ve klasörler ayarlar sayfasından değiştirebilirsiniz.</value>
+  </data>
+  <data name="ManageTags" xml:space="preserve">
+    <value>Etiketleri yönet</value>
+  </data>
+  <data name="Available" xml:space="preserve">
+    <value>Mevcut</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Toplam</value>
+  </data>
+  <data name="AlwaysSwitchToNewlyOpenedTab" xml:space="preserve">
+    <value>Always switch focus to newly created tab</value>
+  </data>
+  <data name="ToggleShelfPane" xml:space="preserve">
+    <value>Toggle the shelf pane</value>
+  </data>
+  <data name="ToggleShelfPaneDescription" xml:space="preserve">
+    <value>Toggle the shelf pane visibility</value>
+  </data>
+  <data name="ShowShelfPaneButtonInAddressBar" xml:space="preserve">
+    <value>Show shelf pane toggle in address bar</value>
+  </data>
+  <data name="Shelf" xml:space="preserve">
+    <value>Shelf</value>
+    <comment>'Shelf' refers to the Shelf Pane feature, where users can conveniently drag and drop files for quick access and perform bulk actions with ease.</comment>
+  </data>
+  <data name="ClearItems" xml:space="preserve">
+    <value>Clear items</value>
+  </data>
+  <data name="RemoveFromShelf" xml:space="preserve">
+    <value>Remove from shelf</value>
+  </data>
+  <data name="AddToShelf" xml:space="preserve">
+    <value>Add to shelf</value>
+    <comment>Tooltip that displays when dragging items to the Shelf Pane</comment>
   </data>
 </root>

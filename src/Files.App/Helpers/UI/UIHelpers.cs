@@ -1,5 +1,5 @@
-// Copyright (c) 2024 Files Community
-// Licensed under the MIT License. See the LICENSE.
+// Copyright (c) Files Community
+// Licensed under the MIT License.
 
 using Files.App.Helpers.Application;
 using Microsoft.UI.Xaml.Controls;
@@ -92,15 +92,14 @@ namespace Files.App.Helpers
 
 		public static void CloseAllDialogs()
 		{
+			if (MainWindow.Instance?.Content?.XamlRoot == null)
+				return;
+
 			var openedDialogs = VisualTreeHelper.GetOpenPopupsForXamlRoot(MainWindow.Instance.Content.XamlRoot);
 
 			foreach (var item in openedDialogs)
-			{
 				if (item.Child is ContentDialog dialog)
-				{
 					dialog.Hide();
-				}
-			}
 		}
 
 		private static IEnumerable<IconFileInfo> SidebarIconResources = LoadSidebarIconResources();
@@ -152,7 +151,7 @@ namespace Files.App.Helpers
 					Constants.ImageRes.ShieldIcon
 				}, 16);
 
-			return imageResList.First();
+			return imageResList.FirstOrDefault();
 		}
 	}
 }

@@ -1,5 +1,5 @@
-﻿// Copyright (c) 2024 Files Community
-// Licensed under the MIT License. See the LICENSE.
+﻿// Copyright (c) Files Community
+// Licensed under the MIT License.
 
 namespace Files.App.Services
 {
@@ -9,19 +9,18 @@ namespace Files.App.Services
 		/// <inheritdoc/>
 		public List<IniSectionDataItem> GetData(string filePath)
 		{
-			var iniPath = SystemIO.Path.Combine(filePath);
-			if (!SystemIO.File.Exists(iniPath))
+			if (!SystemIO.File.Exists(filePath))
 				return [];
 
 			var lines = Enumerable.Empty<string>().ToList();
 
 			try
 			{
-				lines = SystemIO.File.ReadLines(iniPath)
+				lines = SystemIO.File.ReadLines(filePath)
 					.Where(line => !line.StartsWith(';') && !string.IsNullOrEmpty(line))
 					.ToList();
 			}
-			catch (UnauthorizedAccessException)
+			catch (Exception ex) when (ex is UnauthorizedAccessException || ex is SystemIO.FileNotFoundException)
 			{
 				return [];
 			}
@@ -59,8 +58,10 @@ namespace Files.App.Services
 					.Select(line => line.Split('='))
 					// Validate
 					.Where(parts => parts.Length == 2)
+					// Group by key to avoid duplicates
+					.GroupBy(parts => parts[0].Trim())
 					// Gather as dictionary
-					.ToDictionary(parts => parts[0].Trim(), parts => parts[1].Trim());
+					.ToDictionary(partsGroup => partsGroup.Key, partsGroup => partsGroup.Last()[1].Trim());
 
 				dataItems.Add(new()
 				{

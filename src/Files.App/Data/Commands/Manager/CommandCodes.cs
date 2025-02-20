@@ -1,5 +1,5 @@
-// Copyright (c) 2024 Files Community
-// Licensed under the MIT License. See the LICENSE.
+// Copyright (c) Files Community
+// Licensed under the MIT License.
 
 namespace Files.App.Data.Commands
 {
@@ -20,28 +20,36 @@ namespace Files.App.Data.Commands
 
 		// Show
 		ToggleShowHiddenItems,
+		ToggleDotFilesSetting,
 		ToggleShowFileExtensions,
 		TogglePreviewPane,
 		ToggleDetailsPane,
 		ToggleInfoPane,
 		ToggleToolbar,
+		ToggleShelfPane,
 
 		// File System
 		CopyItem,
+		CopyItemPath,
 		CopyPath,
+		CopyItemPathWithQuotes,
 		CopyPathWithQuotes,
 		CutItem,
 		PasteItem,
+		PasteItemAsShortcut,
 		PasteItemToSelection,
 		DeleteItem,
 		DeleteItemPermanently,
 		CreateFolder,
 		CreateFolderWithSelection,
 		AddItem,
+		CreateAlternateDataStream,
 		CreateShortcut,
 		CreateShortcutFromDialog,
 		EmptyRecycleBin,
 		FormatDrive,
+		FormatDriveFromHome,
+		FormatDriveFromSidebar,
 		RestoreRecycleBin,
 		RestoreAllRecycleBin,
 		OpenItem,
@@ -96,6 +104,9 @@ namespace Files.App.Data.Commands
 		DecompressArchiveHereSmart,
 		DecompressArchiveToChildFolder,
 
+		// Folders
+		FlattenFolder,
+
 		// Image Manipulation
 		RotateLeft,
 		RotateRight,
@@ -104,9 +115,16 @@ namespace Files.App.Data.Commands
 		OpenInVSCode,
 		OpenRepoInVSCode,
 		OpenProperties,
+		OpenReleaseNotes,
+		OpenClassicProperties,
 		OpenSettings,
+		OpenStorageSense,
+		OpenStorageSenseFromHome,
+		OpenStorageSenseFromSidebar,
 		OpenTerminal,
 		OpenTerminalAsAdmin,
+		OpenTerminalFromSidebar,
+		OpenTerminalFromHome,
 		OpenCommandPalette,
 		EditInNotepad,
 
@@ -115,7 +133,7 @@ namespace Files.App.Data.Commands
 		LayoutIncreaseSize,
 		LayoutDetails,
 		LayoutList,
-		LayoutTiles,
+		LayoutCards,
 		LayoutGrid,
 		LayoutColumns,
 		LayoutAdaptive,
@@ -172,6 +190,7 @@ namespace Files.App.Data.Commands
 		NavigateBack,
 		NavigateForward,
 		NavigateUp,
+		NavigateHome,
 
 		// Other
 		DuplicateCurrentTab,
@@ -186,6 +205,7 @@ namespace Files.App.Data.Commands
 		PreviousTab,
 		NextTab,
 		CloseSelectedTab,
+		CloseAllTabs,
 
 		// Shell Panes
 		CloseActivePane,

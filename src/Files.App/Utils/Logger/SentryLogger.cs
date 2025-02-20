@@ -1,5 +1,5 @@
-﻿// Copyright (c) 2024 Files Community
-// Licensed under the MIT License. See the LICENSE.
+﻿// Copyright (c) Files Community
+// Licensed under the MIT License.
 
 using Microsoft.Extensions.Logging;
 using Sentry;
@@ -23,7 +23,9 @@ namespace Files.App.Utils.Logger
 		public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception? exception, Func<TState, Exception?, string> formatter)
 		{
 			// Unhandled exceptions are captured in AppLifecycleHelper.HandleAppUnhandledException
-			if (exception is null || exception.Data[Mechanism.HandledKey] is false)
+			if (exception is null ||
+				exception.Data[Mechanism.HandledKey] is false ||
+				logLevel <= LogLevel.Information)
 				return;
 
 			var generalSettingsService = Ioc.Default.GetRequiredService<IGeneralSettingsService>();

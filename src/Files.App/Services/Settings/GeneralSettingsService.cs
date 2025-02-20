@@ -1,9 +1,9 @@
-// Copyright (c) 2024 Files Community
-// Licensed under the MIT License. See the LICENSE.
+// Copyright (c) Files Community
+// Licensed under the MIT License.
 
 namespace Files.App.Services.Settings
 {
-	internal sealed class GeneralSettingsService : BaseObservableJsonSettings, IGeneralSettingsService
+	internal sealed partial class GeneralSettingsService : BaseObservableJsonSettings, IGeneralSettingsService
 	{
 		public GeneralSettingsService(ISettingsSharingContext settingsSharingContext)
 		{
@@ -77,6 +77,12 @@ namespace Files.App.Services.Settings
 			set => Set(value);
 		}
 
+		public bool AlwaysSwitchToNewlyOpenedTab
+		{
+			get => Get(false);
+			set => Set(value);
+		}
+
 		public bool ShowQuickAccessWidget
 		{
 			get => Get(true);
@@ -143,7 +149,19 @@ namespace Files.App.Services.Settings
 			set => Set(value);
 		}
 
+		public bool IsPinnedSectionExpanded
+		{
+			get => Get(true);
+			set => Set(value);
+		}
+
 		public bool ShowLibrarySection
+		{
+			get => Get(false);
+			set => Set(value);
+		}
+
+		public bool IsLibrarySectionExpanded
 		{
 			get => Get(false);
 			set => Set(value);
@@ -155,9 +173,21 @@ namespace Files.App.Services.Settings
 			set => Set(value);
 		}
 
+		public bool IsDriveSectionExpanded
+		{
+			get => Get(false);
+			set => Set(value);
+		}
+
 		public bool ShowCloudDrivesSection
 		{
 			get => Get(true);
+			set => Set(value);
+		}
+
+		public bool IsCloudDriveSectionExpanded
+		{
+			get => Get(false);
 			set => Set(value);
 		}
 
@@ -167,15 +197,33 @@ namespace Files.App.Services.Settings
 			set => Set(value);
 		}
 
+		public bool IsNetworkSectionExpanded
+		{
+			get => Get(false);
+			set => Set(value);
+		}
+
 		public bool ShowWslSection
 		{
 			get => Get(true);
 			set => Set(value);
 		}
 
+		public bool IsWslSectionExpanded
+		{
+			get => Get(false);
+			set => Set(value);
+
+		}
 		public bool ShowFileTagsSection
 		{
 			get => Get(true);
+			set => Set(value);
+		}
+
+		public bool IsFileTagsSectionExpanded
+		{
+			get => Get(false);
 			set => Set(value);
 		}
 
@@ -194,6 +242,12 @@ namespace Files.App.Services.Settings
 		public bool ShowCompressionOptions
 		{
 			get => Get(true);
+			set => Set(value);
+		}
+
+		public bool ShowFlattenOptions
+		{
+			get => Get(false);
 			set => Set(value);
 		}
 
@@ -233,6 +287,12 @@ namespace Files.App.Services.Settings
 			set => Set(value);
 		}
 
+		public bool ShowCreateAlternateDataStream
+		{
+			get => Get(false);
+			set => Set(value);
+		}
+
 		public bool ShowCreateShortcut
 		{
 			get => Get(true);
@@ -241,7 +301,7 @@ namespace Files.App.Services.Settings
 
 		public bool LeaveAppRunning
 		{
-#if STORE || STABLE || PREVIEW
+#if RELEASE
 			get => Get(true);
 #else
 			get => Get(false);
@@ -249,9 +309,33 @@ namespace Files.App.Services.Settings
 			set => Set(value);
 		}
 
+		public bool ShowSystemTrayIcon
+		{
+			get => Get(true);
+			set => Set(value);
+		}
+
 		public FileNameConflictResolveOptionType ConflictsResolveOption
 		{
 			get => (FileNameConflictResolveOptionType)Get((long)FileNameConflictResolveOptionType.GenerateNewName);
+			set => Set((long)value);
+		}
+
+		public ArchiveFormats ArchiveFormatsOption
+		{
+			get => (ArchiveFormats)Get((long)ArchiveFormats.Zip);
+			set => Set((long)value);
+		}
+
+		public ArchiveCompressionLevels ArchiveCompressionLevelsOption
+		{
+			get => (ArchiveCompressionLevels)Get((long)ArchiveCompressionLevels.Normal);
+			set => Set((long)value);
+		}
+
+		public ArchiveSplittingSizes ArchiveSplittingSizesOption
+		{
+			get => (ArchiveSplittingSizes)Get((long)ArchiveSplittingSizes.None);
 			set => Set((long)value);
 		}
 
@@ -271,6 +355,12 @@ namespace Files.App.Services.Settings
 		{
 			get => (ShellPaneArrangement)Get((long)ShellPaneArrangement.Horizontal);
 			set => Set((long)value);
+		}
+
+		public bool ShowShelfPane
+		{
+			get => Get(false);
+			set => Set(value);
 		}
 
 		protected override void RaiseOnSettingChangedEvent(object sender, SettingChangedEventArgs e)

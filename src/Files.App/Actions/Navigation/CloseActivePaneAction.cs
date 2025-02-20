@@ -1,9 +1,9 @@
-﻿// Copyright (c) 2024 Files Community
-// Licensed under the MIT License. See the LICENSE.
+﻿// Copyright (c) Files Community
+// Licensed under the MIT License.
 
 namespace Files.App.Actions
 {
-	internal sealed class CloseActivePaneAction : ObservableObject, IAction
+	internal sealed partial class CloseActivePaneAction : ObservableObject, IAction
 	{
 		private IContentPageContext ContentPageContext { get; } = Ioc.Default.GetRequiredService<IContentPageContext>();
 
@@ -14,10 +14,10 @@ namespace Files.App.Actions
 			=> "CloseActivePaneDescription".GetLocalizedResource();
 
 		public HotKey HotKey
-			=> new(Keys.W, KeyModifiers.CtrlShift);
+			=> new(Keys.W, KeyModifiers.CtrlAlt);
 
 		public RichGlyph Glyph
-			=> new("\uE89F");
+			=> new(themedIconStyle: "App.ThemedIcons.PanelLeftClose");
 
 		public bool IsExecutable
 			=> ContentPageContext.IsMultiPaneActive;

@@ -1,5 +1,5 @@
-﻿// Copyright (c) 2024 Files Community
-// Licensed under the MIT License. See the LICENSE.
+﻿// Copyright (c) Files Community
+// Licensed under the MIT License.
 
 namespace Files.App.Actions
 {
@@ -17,7 +17,7 @@ namespace Files.App.Actions
 			=> "OpenDirectoryInNewTabDescription".GetLocalizedResource();
 
 		public RichGlyph Glyph
-			=> new(opacityStyle: "ColorIconOpenInNewTab");
+			=> new(themedIconStyle: "App.ThemedIcons.OpenInTab");
 
 		public virtual bool IsAccessibleGlobally
 			=> true;
@@ -27,8 +27,7 @@ namespace Files.App.Actions
 			ContentPageContext.ShellPage.SlimContentPage is not null &&
 			ContentPageContext.SelectedItems.Count is not 0 &&
 			ContentPageContext.SelectedItems.Count <= 5 &&
-			ContentPageContext.SelectedItems.Count(x => x.IsFolder) == ContentPageContext.SelectedItems.Count &&
-			UserSettingsService.GeneralSettingsService.ShowOpenInNewTab;
+			ContentPageContext.SelectedItems.Count(x => x.IsFolder) == ContentPageContext.SelectedItems.Count;
 
 		public BaseOpenInNewTabAction()
 		{

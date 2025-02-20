@@ -1,5 +1,5 @@
-// Copyright (c) 2024 Files Community
-// Licensed under the MIT License. See the LICENSE.
+// Copyright (c) Files Community
+// Licensed under the MIT License.
 
 using Windows.Storage;
 
@@ -10,7 +10,7 @@ namespace Files.App.Utils.Storage
 		private static object OrderByNameFunc(ListedItem item)
 			=> item.Name;
 
-		public static Func<ListedItem, object>? GetSortFunc(SortOption directorySortOption)
+		public static Func<ListedItem, object> GetSortFunc(SortOption directorySortOption)
 		{
 			return directorySortOption switch
 			{
@@ -24,7 +24,7 @@ namespace Files.App.Utils.Storage
 				SortOption.Path => item => item.ItemPath,
 				SortOption.OriginalFolder => item => (item as RecycleBinItem)?.ItemOriginalFolder,
 				SortOption.DateDeleted => item => (item as RecycleBinItem)?.ItemDateDeletedReal,
-				_ => null,
+				_ => item => item.Name,
 			};
 		}
 
